@@ -34,7 +34,7 @@ window.JUNTU_CONFIG = {
     /* Turn U.S. shipping on/off for the whole store. Pickup is always available. */
     enabled: true,
     /* Product categories that can never ship (perishables). Products also carry ship:true/false. */
-    pickupOnlyNote: "Fresh meat, fish, frozen foods, produce and prepared meals are store pickup only.",
+    pickupOnlyNote: "Fresh meat, fish, frozen foods and produce are store pickup only.",
     /* Illustrative estimator for the demo only — replaced by live carrier rates at launch.
        No carrier, delivery date or free-shipping offer is promised anywhere on the site. */
     illustrativeRates: true

@@ -37,7 +37,6 @@ const I = {
   bag: '<path d="M5 8h14l-1 12H6zM9 8V6.5a3 3 0 0 1 6 0V8"/>',
   zoom: '<circle cx="11" cy="11" r="6.5"/><path d="m20 20-4-4M11 8.5v5M8.5 11h5"/>',
   x: '<path d="M6 6l12 12M18 6 6 18"/>',
-  pot: '<path d="M4 11h16v3a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6zM2 11h20M9 7c0-1 1-1.5 1-2.5M13 7c0-1 1-1.5 1-2.5"/>',
   down: '<path d="m6 9 6 6 6-6"/>',
   box: '<path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/>'
 };
@@ -251,7 +250,7 @@ function renderHeader() {
   $("#navlinks").innerHTML = dl.map(d => `<a href="${d.href}" data-r="${d.href.slice(1)}">${esc(d.name)}</a>`).join("") + `<a href="#shop-african" data-r="shop-african">African Favorites</a><a href="#visit" data-r="visit">Our Memphis Market</a>`;
   $("#megain").innerHTML = `<div><h3>Departments</h3>${dl.slice(0, 4).map(d => `<a href="${d.href}"><img src="${d.img}" alt="" width="36" height="36" loading="lazy">${esc(d.name)}</a>`).join("")}</div>
    <div><h3>&nbsp;</h3>${dl.slice(4).map(d => `<a href="${d.href}"><img src="${d.img}" alt="" width="36" height="36" loading="lazy">${esc(d.name)}</a>`).join("")}<a href="#shop-african"><img src="assets/dept/millet.webp" alt="" width="36" height="36" loading="lazy">African Favorites</a></div>
-   <div><h3>Our Memphis market</h3><a href="#visit">Visit the store<span>${STORE.addr}</span></a><a href="#pickup">Free store pickup<span>Order online, collect in Memphis</span></a><a href="#jamila">Jamila Kitchen<span>Homemade flavors</span></a></div>
+   <div><h3>Our Memphis market</h3><a href="#visit">Visit the store<span>${STORE.addr}</span></a><a href="#pickup">Free store pickup<span>Order online, collect in Memphis</span></a></div>
    <div><h3>Help</h3><a href="#shop">Shop all ${P.length} products</a><a href="#shipping-info">Shipping &amp; pickup</a><a href="#faq">FAQ</a><a href="#contact">Contact us</a></div>`;
   $("#fvisit").innerHTML = visitLinks();
   syncCount();
@@ -445,13 +444,7 @@ function pHome() {
 
   ${storeSection()}
 
-  <section class="sec" aria-labelledby="jh"><div class="wrap"><div class="jamb">
-    <span class="pot">${ic("pot", 28, 1.7)}</span>
-    <div><h2 id="jh">Jamila Kitchen — Homemade Flavors. Authentic Traditions.</h2><p>Home-style prepared food for our Memphis customers. Ask us what’s cooking today.</p></div>
-    <a class="btn ghost" href="#jamila">About Jamila Kitchen</a>
-  </div></div></section>
-
-  <section class="sec" style="padding-top:0"><div class="wrap">${trust()}</div></section>
+  <section class="sec"><div class="wrap">${trust()}</div></section>
 
   ${rv.length ? `<section class="sec" style="padding-top:0"><div class="wrap">${sh("Recently viewed")}${grid(rv)}</div></section>` : ""}`;
 }
@@ -670,15 +663,6 @@ function pFresh() {
   <div class="dept" style="margin-top:0"><div><b>Halal meat</b><span>Beef, lamb, goat and chicken</span></div><div><b>Fish</b><span>From our meat &amp; fish market</span></div><div><b>Fresh vegetables</b><span>Seasonal selection in store</span></div></div>
   <div class="card-box"><b>Ask about today’s selection</b><p style="margin:6px 0 12px">Call us to check what’s available.</p>${storeBtns()}</div>`);
 }
-function pJamila() {
-  return `<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a>›<span aria-current="page">Jamila Kitchen</span></nav></div>
-  <section class="sec" style="padding-top:14px"><div class="wrap"><div class="jam">
-    <div><span class="eyebrow"><span class="ring" aria-hidden="true"></span>Jamila Kitchen at Juntu Market</span><h1 class="ptitle">Homemade Flavors. Authentic Traditions.</h1>
-    <p>Jamila Kitchen prepares home-style food for our local Memphis customers. Prepared meals are collected from the store and are not shipped.</p>
-    <p>Our menu changes — call to ask what’s cooking today.</p>${storeBtns()}</div>
-    <ul><li>${ic("pot", 20)}<span>Home-style prepared food</span></li><li>${ic("store", 20)}<span>Pickup at ${STORE.addr}, Memphis</span></li><li>${ic("phone", 20)}<span>Order questions by phone</span></li></ul>
-  </div></div></section>`;
-}
 const DRAFT = `<div class="draft" role="note"><b>Draft for owner review.</b> This policy has not yet been approved by Juntu Market LLC and must be reviewed before publication. Questions in the meantime: <a href="tel:${STORE.tel1}">${STORE.tel1d}</a>.</div>`;
 const pages = {
   "shipping-info": () => infoPage("Shipping &amp; Pickup", `<p class="psub">Two ways to get your groceries: free pickup at our Memphis store${SHIP_ON ? ", or shipping on eligible products within the United States" : ""}.</p>
@@ -691,7 +675,7 @@ const pages = {
     ${[["Where is the store?", `Juntu African Market is at ${STORE.addr}, ${STORE.cityLong}. <a href="${STORE.map}" target="_blank" rel="noopener">Get directions</a>.`],
        ["Is store pickup free?", "Yes. Choose <i>Store pickup</i> at checkout and we’ll let you know when your order is ready to collect."],
        ["Do you ship outside Memphis?", SHIP_ON ? "Eligible shelf-stable products can be shipped within the United States. Each product page shows whether it can ship, and the cost is calculated at checkout." : "Online orders are currently available for store pickup."],
-       ["Can fresh meat, frozen food or produce be shipped?", "No. Fresh meat, fish, frozen foods, produce and prepared meals are available for store pickup only."],
+       ["Can fresh meat, frozen food or produce be shipped?", "No. Fresh meat, fish, frozen foods and produce are available for store pickup only."],
        ["What is the Juntu Signature Collection?", "Traditional ingredients packed under Juntu Market’s own label, such as red palm oil, baobab powder, thiakry, noflaye and arraw. <a href=\"#juntu-collection\">Shop the collection</a>."],
        ["I can’t find a product online.", `Our store carries more than is listed online — ${callLine()} and we’ll check for you.`],
        ["What are your store hours?", STORE.hours ? esc(STORE.hours) : `Please ${callLine()} for current store hours.`]
@@ -729,7 +713,6 @@ function render() {
   else if (h === "pickup") { html = pPickup(); title = "Free Store Pickup | Juntu African Market"; }
   else if (h === "visit" || h === "about") { html = pVisit(); title = "Our Memphis Market | Juntu African Market, 3826 E Shelby Dr"; }
   else if (h === "fresh-halal") html = pFresh();
-  else if (h === "jamila") { html = pJamila(); title = "Jamila Kitchen | Juntu African Market"; }
   else if (pages[h]) html = pages[h]();
   else html = notFound();
   document.title = title;

@@ -22,7 +22,7 @@ Prepared by Dalal Technologies · private, do not publish
   - Tropiway Cocoyam Fufu Flour, Tropical Sun Fragrant Rice, Afrigrid Ijebu Garri (2 kg), Honey Beans Oloyin (5 lb), Maggi Chicken Cubes, Titus Sardines (125 g), Rosa Margarine (450 g), Indomie Onion Chicken (70 g), NIDO Fortificada (12.6 oz), Bird's Custard, Milo Tin (1.5 kg).
   - Peak 13 oz from that pack was skipped because Juntu has her own Peak photo.
   - The photos come from retailer sites (listed in `assets/products/list/SOURCES.csv`). They are fine for the private demo. Before public launch, confirm Juntu stocks each item and replace each photo with her own shelf photo or a licensed manufacturer image.
-- Fresh halal meat, fish, produce and Jamila Kitchen are presented as in-store/pickup information only. No photos or menu were supplied, so nothing was invented. The pickup-only logic is built and tested (set `ship:false` on a product).
+- The owner confirmed (Nov 25 2026) there is no restaurant or prepared food, so Jamila Kitchen and all prepared-meal references were removed. Fresh halal meat, fish and produce are presented as in-store/pickup information only. No photos or menu were supplied, so nothing was invented. The pickup-only logic is built and tested (set `ship:false` on a product).
 - `docs/shopify-products-import.csv` holds all 19 products as **draft**. Upload the images to Shopify Files and swap in their URLs before importing. `docs/catalog-verification-checklist.md` is the sheet to review with Khadija.
 
 ## 2b. Photography notes (redesign, Nov 2026)
@@ -44,7 +44,7 @@ Prepared by Dalal Technologies · private, do not publish
 
 ## 3. Shopify integration path
 1. Create the Shopify store (Basic plan is enough to start) and connect the domain.
-2. Build an Online Store 2.0 theme from this design. Each homepage block becomes a reusable section: announcement bar, hero, benefits, category tiles, Signature Collection, product rows, African/Caribbean panels, store pickup band, Jamila Kitchen, footer. The owner can then edit banners, text and featured collections in the theme editor without code.
+2. Build an Online Store 2.0 theme from this design. Each homepage block becomes a reusable section: announcement bar, hero, category tiles, product tabs, Signature Collection, African/Caribbean panels, two ways to shop, Our Memphis Market, trust row, footer. The owner can then edit banners, text and featured collections in the theme editor without code.
 3. Import products from the CSV (after verification). Create collections: Juntu Signature, Rice Grains & Flours, Oils & Seasonings, Pantry Essentials, African Favorites, Caribbean Favorites, Drinks & Beverages, Beauty & Wellness.
 4. Install **Search & Discovery** (free) and add synonym groups: thiakry = dégué = chakery · baobab = bouye = pain de singe · peanut powder = noflaye = groundnut · arraw = millet granules = granulé de mil · palm oil = red palm oil · garri = gari · poundo = pounded yam · yam flour = elubo · honey beans = oloyin.
 5. Payments: activate Shopify Payments, Shop Pay, Apple Pay and Google Pay. Guest checkout stays on (Settings → Checkout → customer accounts optional).
@@ -60,7 +60,7 @@ Prepared by Dalal Technologies · private, do not publish
 3. Enter the real packed **weight** on every product. Set up saved **package sizes** (e.g. small box, medium box, gallon-oil box).
 4. Create two shipping profiles:
    - **Ships nationwide**: shelf-stable items.
-   - **Pickup only**: meat, fish, frozen, produce and Jamila Kitchen. Give this profile no shipping zones, so checkout cannot ship these items.
+   - **Pickup only**: meat, fish, frozen and produce. Give this profile no shipping zones, so checkout cannot ship these items.
 5. Optional: add a handling fee for packaging if Khadija decides on one.
 6. Place a test order to 3 or more ZIP codes (local TN, East Coast, West Coast) and compare the rates against FedEx.com.
 
@@ -94,7 +94,6 @@ WhatsApp stays available for questions, but customers no longer need it to buy.
 - [ ] Business hours confirmed, then set `store.hours` in `config.js` (the site currently says “please call”; the window poster says “Open 7 days a week”)
 - [ ] WhatsApp confirmed on 901-691-2274, then set `whatsappConfirmed: true`
 - [ ] Verified social media profiles (none linked yet)
-- [ ] Jamila Kitchen menu, prices and photos (if online ordering is wanted)
 - [ ] Ownership of the similarly named Houston business clarified (excluded for now)
 - [ ] `demo: false` in `config.js`; remove `noindex` (index.html + netlify.toml); submit the sitemap in Search Console
 - [ ] End-to-end test orders: 1 pickup, 1 in-state shipment, 1 out-of-state shipment, 1 refund

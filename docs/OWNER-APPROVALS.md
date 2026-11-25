@@ -16,7 +16,9 @@ Everything below is either unconfirmed business information or a service that st
 | Prices | Provisional preview prices | `data.js` |
 | Package sizes and weights | Shown only where printed on the pack | `data.js` |
 | Juntu Signature line | 5 products: palm oil, baobab, thiakry, noflaye, arraw. Are there others? | `data.js` |
-| Halal meat, fish, fresh vegetables, Jamila Kitchen | Described as in-store only, from the window posters | `app.js` |
+| Halal meat, fish, fresh vegetables | Described as in-store only, from the window posters. No restaurant or prepared food (confirmed by owner, Nov 25 2026) | `app.js` |
+| Time in business | Open about one year (owner, Nov 25 2026). The site makes no “established”, “since” or years-in-business claims; keep it that way | — |
+| Restaurant / prepared food | None (owner, Nov 25 2026). Jamila Kitchen and all prepared-meal mentions removed | — |
 | Store photos | The two enhanced photos supplied (exterior and interior). Owner to confirm she is happy for them to be public | `assets/store/` |
 
 ## B. Shipping decisions (all configurable)
@@ -25,7 +27,7 @@ Everything below is either unconfirmed business information or a service that st
 - [ ] Carrier and account (no carrier is named on the public site)
 - [ ] Shipping fees, handling fee, delivery areas and timelines (none are published; the demo estimator is clearly marked as illustrative)
 - [ ] Packed weights and box sizes for every product
-- [ ] Confirm that fresh meat, fish, frozen food, produce and prepared meals stay pickup only (this is what the site says now)
+- [ ] Confirm that fresh meat, fish, frozen food and produce stay pickup only (this is what the site says now)
 - [ ] Pickup preparation time (none is promised; customers are told to wait for a "ready" message)
 
 ## C. Policies (shown as "Draft for owner review")

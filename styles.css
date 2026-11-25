@@ -226,11 +226,6 @@ h1,h2,h3{letter-spacing:-.02em}
 .addr span{display:block;color:var(--mut);font-weight:500;font-size:14px}
 .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 
-/* jamila band */
-.jamb{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:20px;align-items:center;border-top:3px solid var(--y);border-bottom:1px solid var(--line);padding:22px 0}
-.jamb .pot{width:56px;height:56px;border-radius:50%;background:var(--y-l);color:#8a5a00;display:grid;place-items:center}
-.jamb h2{font-size:22px;margin:0 0 2px;font-weight:800}
-.jamb p{margin:0;color:var(--mut)}
 
 /* about */
 .about{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:center}
@@ -607,8 +602,6 @@ legend{font-weight:800;padding:0 6px;font-size:15.5px}
   .sec{padding-block:26px}
   .card .row{flex-direction:column;align-items:flex-start;gap:1px}
   #featgrid .card:nth-child(n+7){display:none}
-  .jamb h2{font-size:18px}
-  .jamb{align-items:start}
   .sh{margin-bottom:14px}
   .rail{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:max(3.5vw,16px);gap:12px;margin-inline:calc(-1*max(3.5vw,16px));padding-inline:max(3.5vw,16px);scrollbar-width:none}
   .rail::-webkit-scrollbar{display:none}
@@ -624,8 +617,6 @@ legend{font-weight:800;padding:0 6px;font-size:15.5px}
   .fopts div svg{grid-row:span 2;margin-top:2px}
   .fopts b{margin:0}
   .ffx figure{min-height:200px}
-  .jamb{grid-template-columns:auto minmax(0,1fr);gap:14px}
-  .jamb .btn{grid-column:1/-1;justify-self:start}
   .about ul{grid-template-columns:minmax(0,1fr)}
   .dept{grid-template-columns:minmax(0,1fr)}
   .fl{grid-template-columns:minmax(0,1fr)}

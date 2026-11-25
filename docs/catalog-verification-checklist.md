@@ -33,4 +33,3 @@ All 19 products are **draft** with **provisional demo prices**. Review with Khad
 ## Not online yet (no authentic photos)
 - Halal meat, fish, fresh vegetables (pickup-only)
 - More Caribbean products, beauty & personal care
-- Jamila Kitchen menu, prices, photos
