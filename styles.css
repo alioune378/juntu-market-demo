@@ -413,8 +413,8 @@ legend{font-weight:800;padding:0 6px;font-size:15.5px}
 
 
 /* ===== Final refinement (Nov 2026) ===== */
-/* WONK 0: keep Fraunces letters upright (no leaning "f", "h", "n" at display sizes) */
-.disp{font-family:Fraunces,Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:-.015em;font-optical-sizing:auto;font-variation-settings:"WONK" 0}
+/* Headline serif: Source Serif 4 (upright, classic letterforms) */
+.disp{font-family:"Source Serif 4",Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:-.01em;font-optical-sizing:auto}
 .btn.lg{min-height:50px;padding:0 24px;font-size:15.5px}
 .btn.gold{background:var(--gold-l);border-color:var(--gold-l);color:var(--deep)}
 .btn.gold:hover{background:#e6cb88;border-color:#e6cb88}
@@ -422,7 +422,7 @@ legend{font-weight:800;padding:0 6px;font-size:15.5px}
 
 /* hero */
 .hero-copy{max-width:600px}
-.hero h1.disp{font-size:clamp(38px,4vw,54px);line-height:1.08;letter-spacing:-.02em;font-weight:700;margin:12px 0 14px}
+.hero h1.disp{font-size:clamp(38px,4vw,54px);line-height:1.08;letter-spacing:-.015em;font-weight:700;margin:12px 0 14px}
 .hero h1.disp span{margin-top:.04em}
 .hero h1 span{display:block;color:var(--g)}
 .hero .eyebrow{font-size:12.5px;letter-spacing:.02em}
