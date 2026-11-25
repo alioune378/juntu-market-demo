@@ -13,7 +13,8 @@ Prepared by Dalal Technologies · private, do not publish
 
 - No card data is collected. No payment is made. Prices are provisional. Stock is not connected.
 - The `noindex` meta tag keeps the preview out of search engines. Remove it at launch, or password-protect the store.
-- A small **Demo preview** button in the green announcement bar explains all of this to the viewer.
+- A small **Demo preview** button in the announcement bar explains all of this to the viewer. Turn it off with `demo: false` in `config.js`.
+- The full list of owner approvals and integrations still to connect is in `docs/OWNER-APPROVALS.md`.
 
 ## 2. Products (19 live in the demo)
 - **8 with Juntu's own photos**: 5 Juntu-label products (palm oil, baobab, thiakry, noflaye, arraw), Sunquick, Peak 380 mL, Herb To Body Sea Moss Bitter.
@@ -29,6 +30,17 @@ Prepared by Dalal Technologies · private, do not publish
 - On palm oil, Peak and Sunquick, the hands were removed by tracing each product's outline. Packaging, labels, sizes and text are unaltered; only a thin strip at the edges (under 5% of each image) was filled where fingers overlapped. New studio photos of these three are still recommended before launch.
 - The hero image and department circles (rice, spices, beans, peppers, hibiscus, cassava) come from the AI-generated ingredient photos in the Africa Supermarket pack. They are mood imagery, not products. Replace them with a real photo shoot of Juntu's ingredients when possible.
 - `assets/brand/hero-1600.webp` (desktop) and `hero-m.webp` (mobile) are separate crops; the mobile hero is designed independently.
+
+## 2c. Final refinement (Nov 25 2026)
+- **Real store photography**: the enhanced exterior and interior photos replace the old storefront crops (`assets/store/`, WebP at 480/800/1122 px). Both are shown whole at their natural 1122×1402 ratio and are never cropped. The full sign, logo, phone number, building number 3826, entrance, windows and brick wall stay visible. Tap or click to open them full screen (with swipe and arrow keys).
+- **One store section**: "Our Memphis Market" near the bottom of the homepage, plus a `#visit` page. The exterior photo appears only once on the homepage.
+- **Signature Collection**: deep green, warm cream and gold panel with all 5 Juntu products, plus a dedicated `#juntu-collection` page.
+- **Departments**: only categories with real products are shown (Juntu Signature, Rice Grains & Flours, Oils & Seasonings, African Pantry, Caribbean Favorites, Beverages, Health & Wellness). Each opens a filtered collection.
+- **Header and search**: larger logo, "Search groceries…" on phones, a labelled pickup/ship control, popular searches and departments shown when the search box is focused, and suggestion chips when there are no results.
+- **Mobile app feel**: an active-tab indicator in the bottom navigation, cart count read out to screen readers, scroll position restored when going back to a list, and the iPhone safe area respected.
+- **Honesty fixes**: no carrier is named on the public site, WhatsApp is hidden until confirmed, hours are not published, policies are labelled as drafts, and the newsletter form (which could not send) was removed.
+- **New config file**: `config.js` holds demo mode, store facts, WhatsApp and hours toggles, and shipping on/off.
+- **QA**: tested at 375, 390, 430, 820 and 1440 px with no horizontal overflow and no script errors. The full journey (department → product → add → quantity → search → cart → remove → checkout validation → pickup/ship → confirmation) was run automatically. All internal links resolve.
 
 ## 3. Shopify integration path
 1. Create the Shopify store (Basic plan is enough to start) and connect the domain.
@@ -79,11 +91,12 @@ WhatsApp stays available for questions, but customers no longer need it to buy.
 - [ ] Stock confirmed for the 11 staples from the Africa Supermarket pack; their retailer photos replaced with owner or licensed photos
 - [ ] Shipping policy approved
 - [ ] Returns & refunds, privacy and terms policies approved (pages currently say they will be published)
-- [ ] Business hours confirmed (the site currently says “please call for current hours”; the window poster says “Open 7 days a week”, which needs confirming)
+- [ ] Business hours confirmed, then set `store.hours` in `config.js` (the site currently says “please call”; the window poster says “Open 7 days a week”)
+- [ ] WhatsApp confirmed on 901-691-2274, then set `whatsappConfirmed: true`
 - [ ] Verified social media profiles (none linked yet)
 - [ ] Jamila Kitchen menu, prices and photos (if online ordering is wanted)
 - [ ] Ownership of the similarly named Houston business clarified (excluded for now)
-- [ ] Remove `noindex` and the demo-preview button; submit the sitemap in Search Console
+- [ ] `demo: false` in `config.js`; remove `noindex` (index.html + netlify.toml); submit the sitemap in Search Console
 - [ ] End-to-end test orders: 1 pickup, 1 in-state shipment, 1 out-of-state shipment, 1 refund
 
 ## 8. Testing done on the demo (all passed)

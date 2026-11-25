@@ -9,11 +9,11 @@ window.JUNTU_CATS = [
   { id: "juntu", name: "Juntu Signature Collection", short: "Juntu Signature" },
   { id: "rice-grains", name: "Rice, Grains & Flours", short: "Rice & Grains" },
   { id: "oils-seasonings", name: "Oils & Seasonings", short: "Oils & Seasonings" },
-  { id: "pantry", name: "Pantry Essentials", short: "Pantry" },
+  { id: "pantry", name: "African Pantry", short: "African Pantry" },
   { id: "african", name: "African Favorites", short: "African Favorites" },
   { id: "caribbean", name: "Caribbean Favorites", short: "Caribbean Favorites" },
-  { id: "drinks", name: "Drinks & Beverages", short: "Drinks" },
-  { id: "wellness", name: "Beauty & Wellness", short: "Beauty & Wellness" }
+  { id: "drinks", name: "Beverages", short: "Beverages" },
+  { id: "wellness", name: "Health & Wellness", short: "Health & Wellness" }
 ];
 
 window.JUNTU_PRODUCTS = [
@@ -54,7 +54,7 @@ window.JUNTU_PRODUCTS = [
     label: "Pack reads: “Peak — Evaporated Milk”, 13 FL OZ (380 mL)." },
   { id: "herb-to-body-sea-moss-bitter", src: "juntu", img: "herb-to-body-super-sea-moss-bitter", brand: "Herb To Body", name: "Herb To Body Super Sea Moss Bitter",
     size: "473 mL (16 fl oz)", price: 24.99, wt: 1.6, ship: true, cats: ["wellness", "caribbean", "drinks"],
-    tags: ["sea moss", "seamoss", "irish moss", "bitter", "bitters", "herb to body"],
+    tags: ["sea moss", "seamoss", "irish moss", "bitter", "bitters", "herb to body", "supplement", "wellness"],
     desc: "Herb To Body Super Sea Moss Bitter, 16 fl oz (473 mL). Labeled as a dietary supplement. Read the full label before use.",
     label: "Pack reads: “Super Sea Moss — Bitter”, “Dietary Supplement”, 16 FL OZ (473 mL)." },
 
