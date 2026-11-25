@@ -14,7 +14,7 @@
 <link rel="icon" href="favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"GroceryStore","name":"Juntu African Market","legalName":"Juntu Market LLC","slogan":"Your Taste of Africa & the Caribbean","telephone":"+1-901-691-2274","address":{"@type":"PostalAddress","streetAddress":"3826 E Shelby Dr","addressLocality":"Memphis","addressRegion":"TN","postalCode":"38118","addressCountry":"US"},"image":"assets/brand/storefront-1152.webp","logo":"assets/brand/juntu-logo-320.png"}
@@ -25,20 +25,21 @@
 
 <div class="ann">
   <div class="wrap">
-    <p>African &amp; Caribbean Favorites — Shop Online or Pick Up in Memphis</p>
+    <p><i aria-hidden="true"></i>African &amp; Caribbean Favorites — Shop Online or Pick Up in Memphis</p>
     <button class="demo-pill" type="button" data-act="demo-info">Demo preview</button>
   </div>
 </div>
 
 <header class="hdr" id="hdr">
-  <div class="wrap hdr-row">
+  <div class="wrap hrow">
     <a class="brand" href="#home" aria-label="Juntu African Market — home">
-      <img src="assets/brand/juntu-logo-160.webp" width="54" height="54" alt="Juntu Market LLC logo">
+      <img src="assets/brand/juntu-logo-160.webp" width="46" height="46" alt="Juntu Market LLC logo">
       <span><b>Juntu African Market</b><small>Memphis, Tennessee</small></span>
     </a>
+    <button class="deptbtn" type="button" data-act="mega" aria-expanded="false" aria-controls="mega"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Departments</span></button>
     <div class="search" role="search">
       <form id="sform" autocomplete="off">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         <label class="sr" for="q">Search products</label>
         <input id="q" type="search" placeholder="Search products, brands and ingredients…" aria-autocomplete="list" aria-controls="sugg" aria-expanded="false">
         <button type="submit">Search</button>
@@ -48,10 +49,10 @@
     <div class="hdr-act">
       <button class="ful" type="button" data-act="fulfil" id="fulbtn" aria-haspopup="dialog"></button>
       <a class="ibtn acct" href="#account" aria-label="Account">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
       </a>
       <button class="ibtn cartb" type="button" data-act="open-cart" aria-label="Cart">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20.5" r="1.3"/><circle cx="17.5" cy="20.5" r="1.3"/></svg>
+        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20.5" r="1.3"/><circle cx="17.5" cy="20.5" r="1.3"/></svg>
         <span class="badge cnt" data-n="0">0</span>
       </button>
     </div>
@@ -66,51 +67,40 @@
 
 <footer class="ftr">
   <div class="wrap">
-    <div class="fgrid">
+    <div class="ftop">
       <div class="fb">
-        <img src="assets/brand/juntu-logo-160.webp" width="72" height="72" alt="Juntu Market LLC logo" loading="lazy">
-        <p><b style="color:var(--ink)">Juntu African Market</b> — African and Caribbean groceries, traditional ingredients and our own Juntu-label products, from our Memphis market to your home.</p>
-        <p>3826 E Shelby Dr, Memphis, TN 38118<br>
-        <a href="tel:+19016912274">+1 (901) 691-2274</a> (call &amp; WhatsApp)<br>
-        <a href="tel:+19016660379">+1 (901) 666-0379</a></p>
+        <img src="assets/brand/juntu-logo-160.webp" width="64" height="64" alt="Juntu Market LLC logo" loading="lazy">
+        <p><b style="color:var(--ink)">Juntu African Market</b> — African and Caribbean groceries and our own Juntu-label products, from our Memphis market to your home.</p>
       </div>
-      <div>
-        <h3>Shop</h3>
-        <ul id="fcats"></ul>
-      </div>
-      <div>
-        <h3>Customer service</h3>
-        <ul>
-          <li><a href="#shipping-info">Shipping information</a></li>
-          <li><a href="#pickup">Local pickup</a></li>
-          <li><a href="#track">Order tracking</a></li>
-          <li><a href="#returns">Returns &amp; refunds</a></li>
-          <li><a href="#contact">Contact us</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3>About</h3>
-        <ul>
-          <li><a href="#pickup">Our Memphis store</a></li>
-          <li><a href="#jamila">Jamila Kitchen</a></li>
-          <li><a href="#account">My account</a></li>
-          <li><a href="#privacy">Privacy policy</a></li>
-          <li><a href="#terms">Terms &amp; conditions</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Stay in the loop</h3>
-        <p>New arrivals and Juntu products, now and then. No spam.</p>
-        <form class="nl" id="nlform" novalidate>
-          <label class="sr" for="nlemail">Email address</label>
-          <input id="nlemail" type="email" placeholder="Your email" autocomplete="email" required>
-          <button class="btn" type="submit">Subscribe</button>
-        </form>
-        <p class="note" id="nlmsg" role="status"></p>
-      </div>
+      <details class="fd"><summary>Shop</summary><ul id="fcats"></ul></details>
+      <details class="fd"><summary>Customer service</summary><ul>
+        <li><a href="#shipping-info">Shipping information</a></li>
+        <li><a href="#pickup">Local pickup</a></li>
+        <li><a href="#track">Order tracking</a></li>
+        <li><a href="#returns">Returns &amp; refunds</a></li>
+        <li><a href="#account">My account</a></li></ul></details>
+      <details class="fd"><summary>About Juntu</summary><ul>
+        <li><a href="#about">About Juntu Market</a></li>
+        <li><a href="#jamila">Jamila Kitchen</a></li>
+        <li><a href="#privacy">Privacy policy</a></li>
+        <li><a href="#terms">Terms &amp; conditions</a></li></ul></details>
+      <details class="fd"><summary>Contact</summary><ul>
+        <li><span>3826 E Shelby Dr, Memphis, TN 38118</span></li>
+        <li><a href="tel:+19016912274">+1 (901) 691-2274</a> <span>Call &amp; WhatsApp</span></li>
+        <li><a href="tel:+19016660379">+1 (901) 666-0379</a></li>
+        <li><a href="#contact">All contact options</a></li></ul></details>
+    </div>
+    <div class="nlrow">
+      <b>New arrivals and Juntu products, now and then.</b>
+      <form class="nl" id="nlform" novalidate>
+        <label class="sr" for="nlemail">Email address</label>
+        <input id="nlemail" type="email" placeholder="Your email" autocomplete="email" required>
+        <button class="btn" type="submit">Subscribe</button>
+      </form>
+      <p class="note" id="nlmsg" role="status"></p>
     </div>
     <div class="fbot">
-      <span>© <span id="yr"></span> Juntu Market LLC. Your Taste of Africa &amp; the Caribbean.</span>
+      <span>© <span id="yr"></span> Juntu Market LLC · Your Taste of Africa &amp; the Caribbean</span>
       <span>Designed &amp; Developed by <a href="https://www.dalaltechnologies.com" target="_blank" rel="noopener">Dalal Technologies</a></span>
     </div>
   </div>

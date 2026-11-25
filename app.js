@@ -172,20 +172,24 @@ function openCart() {
 }
 
 /* ---------- shared fragments ---------- */
-const chip = p => p.ship ? `<span class="chip">${ic("truck", 14, 2)}Ship or pickup</span>` : `<span class="chip pk">${ic("store", 14, 2)}Pickup only</span>`;
+const chip = p => p.ship ? `<span class="fx">${ic("truck", 14, 2)}Ships · Pickup</span>` : `<span class="fx pk">${ic("store", 14, 2)}Pickup only</span>`;
 function addCtl(p, sm) {
   const q = qty(p.id);
-  if (!q) return `<button class="btn" type="button" data-act="add" data-id="${p.id}" aria-label="Add ${esc(p.name)} to cart">Add to cart</button>`;
+  if (!q) return `<button class="btn" type="button" data-act="add" data-id="${p.id}" aria-label="Add ${esc(p.name)} to cart">${ic("bag", 16, 2)} Add</button>`;
   return `<div class="step${sm ? " sm" : ""}" role="group" aria-label="Quantity of ${esc(p.name)} in cart"><button type="button" data-act="dec" data-id="${p.id}" aria-label="Decrease quantity">−</button><output aria-live="polite">${q}<span class="sr"> in cart</span></output><button type="button" data-act="inc" data-id="${p.id}" aria-label="Increase quantity">+</button></div>`;
 }
 const alt = p => `${p.name}${p.size ? ", " + p.size : ""} — product photo`;
 const card = p => `<article class="card">
   <a class="im" href="#p-${p.id}" tabindex="-1" aria-hidden="true"><img src="${imgS(p)}" alt="${esc(alt(p))}" width="480" height="480" loading="lazy"></a>
+  ${p.src === "juntu" && p.brand === "Juntu" ? '<span class="tagj">Juntu</span>' : ""}
   <div class="bd"><span class="br">${esc(p.brand)}</span>
-  <h3><a href="#p-${p.id}">${esc(p.name)}</a></h3><span class="sz">${esc(p.size)}</span>
+  <h3><a href="#p-${p.id}">${esc(p.name)}</a></h3>${p.size ? `<span class="sz">${esc(p.size)}</span>` : ""}
   <div class="row"><span class="price">${money(p.price)}</span>${chip(p)}</div>
   <div class="add" data-add="${p.id}">${addCtl(p)}</div></div></article>`;
-const grid = list => `<div class="grid">${list.map(card).join("")}</div>`;
+const hcard = p => `<article class="hc"><a class="im" href="#p-${p.id}" tabindex="-1" aria-hidden="true"><img src="${imgS(p)}" alt="${esc(alt(p))}" width="160" height="160" loading="lazy"></a>
+  <div><span class="br">${esc(p.brand)}${p.size ? " · " + esc(p.size) : ""}</span><h3><a href="#p-${p.id}">${esc(p.name)}</a></h3>
+  <div class="pr"><span class="price">${money(p.price)}</span><div class="add" data-add="${p.id}" data-sm="1">${addCtl(p, 1)}</div></div></div></article>`;
+const grid = (list, cls = "") => `<div class="grid ${cls}">${list.map(card).join("")}</div>`;
 const sh = (title, sub, link) => `<div class="sh"><div><h2>${title}</h2>${sub ? `<p>${sub}</p>` : ""}</div>${link || ""}</div>`;
 const storeBtns = () => `<div class="btns">
   <a class="btn" href="tel:${STORE.tel1}">${ic("phone", 18)} Call ${STORE.tel1d}</a>
@@ -201,22 +205,30 @@ function refresh(id) {
 }
 
 /* ---------- header ---------- */
+const DEPTS = [
+  { name: "Juntu Signature", href: "#juntu-collection", img: "assets/products/juntu-baobab-powder-cut.webp", pk: 1, cat: "juntu" },
+  { name: "Rice, Grains & Flours", href: "#shop-rice-grains", img: "assets/dept/rice.webp", cat: "rice-grains" },
+  { name: "Oils & Seasonings", href: "#shop-oils-seasonings", img: "assets/dept/spices.webp", cat: "oils-seasonings" },
+  { name: "African Pantry", href: "#shop-pantry", img: "assets/dept/beans.webp", cat: "pantry" },
+  { name: "Caribbean Favorites", href: "#shop-caribbean", img: "assets/dept/pepper.webp", cat: "caribbean" },
+  { name: "Drinks & Beverages", href: "#shop-drinks", img: "assets/dept/hibiscus.webp", cat: "drinks" },
+  { name: "Beauty & Wellness", href: "#shop-wellness", img: "assets/products/herb-to-body-super-sea-moss-bitter-cut.webp", pk: 1, cat: "wellness" },
+  { name: "Halal Meat & Fresh", href: "#fresh-halal", img: "assets/dept/cassava.webp", note: "In store" }
+];
+const deptLive = () => DEPTS.filter(d => !d.cat || inCat(d.cat).length);
 function renderHeader() {
   const f = $("#fulbtn");
   f.innerHTML = S.mode === "pickup"
-    ? `${ic("store", 20)}<span><small>Store pickup</small><b>Memphis, TN</b></span>`
-    : `${ic("truck", 20)}<span><small>Shipping to</small><b>${S.zip ? "ZIP " + esc(S.zip) : "Add ZIP code"}</b></span>`;
+    ? `${ic("store", 21)}<span><small>Store pickup</small><b>Memphis, TN</b></span>`
+    : `${ic("truck", 21)}<span><small>Shipping to</small><b>${S.zip ? "ZIP " + esc(S.zip) : "Add ZIP code"}</b></span>`;
   f.setAttribute("aria-label", S.mode === "pickup" ? "Fulfillment: store pickup in Memphis. Change" : "Fulfillment: shipping" + (S.zip ? " to " + S.zip : "") + ". Change");
-  const lc = liveCats();
-  $("#navlinks").innerHTML = `<button class="dd" type="button" data-act="mega" aria-expanded="false" aria-controls="mega">All departments ${ic("down", 16, 2.2)}</button>
-    <a href="#shop" data-r="shop">Shop All</a>` +
-    lc.filter(c => !["oils-seasonings", "wellness", "drinks"].includes(c.id)).map(c => `<a href="#${c.id === "juntu" ? "juntu-collection" : "shop-" + c.id}" data-r="${c.id === "juntu" ? "juntu-collection" : "shop-" + c.id}">${esc(c.short)}</a>`).join("") +
-    `<a href="#fresh-halal" data-r="fresh-halal">Halal Meat &amp; Fresh</a><a href="#jamila" data-r="jamila">Jamila Kitchen</a>`;
-  $("#megain").innerHTML = `<div><h3>Shop online</h3><a href="#shop">Shop all products<span>${P.length} products</span></a>${lc.slice(0, 3).map(c => `<a href="#${c.id === "juntu" ? "juntu-collection" : "shop-" + c.id}">${esc(c.name)}<span>${inCat(c.id).length} products</span></a>`).join("")}</div>
-   <div><h3>&nbsp;</h3>${lc.slice(3).map(c => `<a href="#shop-${c.id}">${esc(c.name)}<span>${inCat(c.id).length} products</span></a>`).join("")}</div>
-   <div><h3>At our Memphis store</h3><a href="#fresh-halal">Halal meat, fish &amp; fresh produce<span>In-store, pickup only</span></a><a href="#jamila">Jamila Kitchen<span>Homemade flavors</span></a><a href="#pickup">Local store pickup<span>3826 E Shelby Dr</span></a></div>
-   <div><h3>Help</h3><a href="#shipping-info">Shipping information</a><a href="#track">Track an order</a><a href="#contact">Contact us</a></div>`;
-  $("#fcats").innerHTML = `<li><a href="#shop">Shop all</a></li>` + lc.map(c => `<li><a href="#${c.id === "juntu" ? "juntu-collection" : "shop-" + c.id}">${esc(c.name)}</a></li>`).join("") + `<li><a href="#fresh-halal">Halal meat &amp; fresh</a></li>`;
+  const dl = deptLive();
+  $("#navlinks").innerHTML = dl.map(d => `<a href="${d.href}" data-r="${d.href.slice(1)}">${esc(d.name)}</a>`).join("") + `<a href="#jamila" data-r="jamila">Jamila Kitchen</a>`;
+  $("#megain").innerHTML = `<div><h3>Departments</h3>${dl.slice(0, 4).map(d => `<a href="${d.href}"><img src="${d.img}" alt="" width="36" height="36">${esc(d.name)}</a>`).join("")}</div>
+   <div><h3>&nbsp;</h3>${dl.slice(4).map(d => `<a href="${d.href}"><img src="${d.img}" alt="" width="36" height="36">${esc(d.name)}</a>`).join("")}</div>
+   <div><h3>At our Memphis store</h3><a href="#pickup">Local store pickup<span>${STORE.addr}</span></a><a href="#jamila">Jamila Kitchen<span>Homemade flavors</span></a><a href="#about">About Juntu Market</a></div>
+   <div><h3>Help</h3><a href="#shop">Shop all ${P.length} products</a><a href="#shipping-info">Shipping information</a><a href="#track">Track an order</a><a href="#contact">Contact us</a></div>`;
+  $("#fcats").innerHTML = `<li><a href="#shop">Shop all</a></li>` + dl.map(d => `<li><a href="${d.href}">${esc(d.name)}</a></li>`).join("");
   $$(".cnt").forEach(b => { b.textContent = count(); b.dataset.n = count(); });
   $$("#navlinks a").forEach(a => a.classList.toggle("cur", a.dataset.r === route));
   $$(".bnav [data-b]").forEach(a => a.classList.toggle("on", a.dataset.b === route || (a.dataset.b === "shop" && route.startsWith("shop"))));
@@ -273,82 +285,113 @@ function renderDrawer() {
 
 /* ---------- pages ---------- */
 const sig = () => inCat("juntu");
+let featTab = "all";
+const FEAT = ["juntu-thiakry", "afrigrid-ijebu-garri", "maggi-chicken-cubes", "milo-tin-1-5kg", "tropical-sun-fragrant-rice", "juntu-baobab-powder", "peak-evaporated-milk", "tropiway-cocoyam-fufu", "sunquick-mandarin", "honey-beans-oloyin"];
+const featList = () => (featTab === "all" ? FEAT.map(byId).filter(Boolean) : inCat(featTab)).slice(0, 10);
+const featTabs = [["all", "Featured"], ["juntu", "Juntu"], ["rice-grains", "Grains & Flours"], ["pantry", "Pantry"], ["drinks", "Drinks"]];
+function aboutBlock(h1) {
+  const T = h1 ? "h1" : "h2";
+  return `<div class="about">
+    <div><span class="eyebrow"><span class="ring" aria-hidden="true"></span>About Juntu Market</span>
+      <${T} class="${h1 ? "ptitle" : ""}">A Memphis market with Africa and the Caribbean on its shelves.</${T}>
+      <p>Juntu African Market is the grocery store of Juntu Market LLC at ${STORE.addr} in Memphis, Tennessee — <i>Your Taste of Africa &amp; the Caribbean</i>. Alongside familiar brands, we offer traditional ingredients under our own Juntu label.</p>
+      <p>Now the same shelves are online, so you can order from anywhere and collect in Memphis, or have eligible groceries shipped.</p>
+      <ul>
+        <li>${ic("check", 17, 2.4)}Halal meat: beef, lamb, goat &amp; chicken</li>
+        <li>${ic("check", 17, 2.4)}Meat &amp; fish market</li>
+        <li>${ic("check", 17, 2.4)}Fresh vegetables</li>
+        <li>${ic("check", 17, 2.4)}Rice, grains, flour &amp; legumes</li>
+        <li>${ic("check", 17, 2.4)}Cooking oils, seasonings &amp; beverages</li>
+        <li>${ic("check", 17, 2.4)}Juntu Signature Collection</li>
+      </ul>
+      <div class="btns"><a class="btn ghost" href="${STORE.map}" target="_blank" rel="noopener">${ic("pin", 18)} Get directions</a><a class="btn ghost" href="tel:${STORE.tel1}">${ic("phone", 18)} ${STORE.tel1d}</a></div>
+    </div>
+    <figure><img src="assets/brand/storefront-1152.webp" alt="Juntu African Market storefront with its sign and phone number 901-691-2274, at 3826 E Shelby Dr, Memphis" width="1152" height="1536" loading="lazy"></figure>
+  </div>`;
+}
 function pHome() {
   const s = sig();
-  const hero = s.slice(0, 5);
-  const catTiles = liveCats().map(c => {
-    const pref = { juntu: "juntu-baobab-powder", "rice-grains": "tropical-sun-fragrant-rice", "oils-seasonings": "maggi-chicken-cubes", pantry: "nido-fortificada", african: "juntu-thiakry", caribbean: "herb-to-body-sea-moss-bitter", drinks: "milo-tin-1-5kg", wellness: "herb-to-body-sea-moss-bitter" };
-    const pic = byId(pref[c.id]) || (c.id === "rice-grains" && byId("juntu-arraw-millet")) || inCat(c.id)[0];
-    const href = c.id === "juntu" ? "#juntu-collection" : "#shop-" + c.id;
-    return `<a class="cat" href="${href}"><span class="ci"><img src="${imgS(pic)}" alt="" width="480" height="480" loading="lazy"></span><b>${esc(c.short)}</b><span>${inCat(c.id).length} product${inCat(c.id).length > 1 ? "s" : ""}</span></a>`;
-  }).join("");
-  const everyday = ["sunquick-mandarin", "peak-evaporated-milk", "maggi-chicken-cubes", "milo-tin-1-5kg", "tropical-sun-fragrant-rice", "afrigrid-ijebu-garri", "indomie-onion-chicken", "titus-sardines", "nido-fortificada", "birds-custard", "rosa-margarine-450g", "herb-to-body-sea-moss-bitter"].map(byId).filter(Boolean);
-  const afr = ["afrigrid-ijebu-garri", "tropiway-cocoyam-fufu", "honey-beans-oloyin", "maggi-chicken-cubes", "milo-tin-1-5kg", "indomie-onion-chicken"].map(byId).filter(Boolean);
+  const afr = ["afrigrid-ijebu-garri", "tropiway-cocoyam-fufu", "honey-beans-oloyin", "maggi-chicken-cubes", "titus-sardines", "indomie-onion-chicken", "milo-tin-1-5kg", "birds-custard"].map(byId).filter(Boolean);
   const car = inCat("caribbean");
-  const rv = S.recent.map(byId).filter(Boolean).slice(0, 4);
+  const pan = ["nido-fortificada", "rosa-margarine-450g", "peak-evaporated-milk", "titus-sardines", "indomie-onion-chicken", "birds-custard"].map(byId).filter(Boolean);
+  const heroP = ["juntu-baobab-powder", "juntu-thiakry", "juntu-peanut-powder-noflaye"].map(byId).filter(Boolean);
+  const rv = S.recent.map(byId).filter(Boolean).slice(0, 5);
   return `
-  <section class="hero"><div class="wrap hero-grid">
-    <div>
-      <h1>The Taste of Home.<span>Delivered to Your Door.</span></h1>
-      <p class="lead">Discover authentic African and Caribbean groceries, traditional ingredients and familiar favorites. Shop from wherever you call home.</p>
-      <div class="ctas"><a class="btn" href="#shop">Shop Now</a><a class="btn ghost" href="#juntu-collection">Explore Juntu Products</a></div>
-      <p class="svc">${ic("pin", 20)} From our Memphis market to your home.</p>
+  <section class="hero">
+    <div class="hero-img"><picture><source media="(max-width:760px)" srcset="assets/brand/hero-m.webp"><img src="assets/brand/hero-1600.webp" alt="Bowls of rice, black-eyed peas, millet, spices and hibiscus with plantain and cassava" width="1600" height="1067" fetchpriority="high"></picture></div>
+    <div class="wrap hero-in">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="ring" aria-hidden="true"></span>From our Memphis market to your home</span>
+        <h1>The Taste of Home. <span>Delivered to Your Door.</span></h1>
+        <p class="lead">Authentic African and Caribbean groceries. Your favorite ingredients, wherever you call home.</p>
+        <div class="ctas"><a class="btn" href="#shop">Shop Now</a><a class="btn ghost" href="#juntu-collection">Discover Juntu Products</a></div>
+        <div class="facts"><span>${ic("store", 18)} Free pickup in Memphis</span><span>${ic("truck", 18)} U.S. shipping on eligible items</span><span>${ic("lock", 18)} Secure checkout</span></div>
+      </div>
+      <div class="hero-prods"><div class="hp-h"><span class="eyebrow" style="font-size:13px"><span class="ring" aria-hidden="true"></span>Proudly Juntu</span><a class="more" href="#juntu-collection" style="font-size:13px">Shop collection →</a></div>
+        <div class="hp">${heroP.map(p => `<a href="#p-${p.id}"><span><img src="assets/products/${p.img}-cut.webp" alt="${esc(alt(p))}" width="200" height="240"></span>${esc(p.name)}</a>`).join("")}</div></div>
     </div>
-    <div class="shelf" aria-label="Juntu Signature Collection products">
-      <span class="stamp"><img src="assets/brand/juntu-logo-160.webp" alt="" width="28" height="28">Juntu Signature Collection</span>
-      <span class="rings" aria-hidden="true"><i style="background:var(--r)"></i><i style="background:var(--y)"></i><i style="background:var(--g)"></i></span>
-      <div class="tiles">${hero.map((p, i) => `<a href="#p-${p.id}"><img src="assets/products/${p.img}-hero.webp" alt="${esc(alt(p))}" width="640" height="760" ${i ? "" : 'fetchpriority="high"'}><span>${esc(p.name.replace("Juntu ", "").replace(" — Millet Granules", "").replace("Peanut Powder — ", ""))}</span></a>`).join("")}</div>
+  </section>
+
+  <section class="sec" aria-labelledby="dh"><div class="wrap">
+    ${sh('<span id="dh">Shop by department</span>', "", '<a class="more" href="#shop">Shop all →</a>')}
+    <div class="depts">${deptLive().map(d => `<a class="dep" href="${d.href}"><span class="c${d.pk ? " pk" : ""}"><img src="${d.img}" alt="" width="160" height="160" loading="lazy"></span>${esc(d.name)}<small>${d.cat ? inCat(d.cat).length + (inCat(d.cat).length === 1 ? " product" : " products") : d.note}</small></a>`).join("")}</div>
+  </div></section>
+
+  <section class="sec" style="padding-top:0" aria-labelledby="fh"><div class="wrap">
+    ${sh('<span id="fh">Shop our shelves</span>', "Everyday staples and our own Juntu products.", '<a class="more" href="#shop">See all ' + P.length + ' products →</a>')}
+    <div class="tabs" role="tablist" aria-label="Product groups">${featTabs.map(([k, t]) => `<button type="button" role="tab" data-act="tab" data-k="${k}" aria-selected="${featTab === k}">${t}</button>`).join("")}</div>
+    <div id="featgrid">${grid(featList())}</div>
+  </div></section>
+
+  <section class="sig" aria-labelledby="sgh"><div class="wrap sig-in">
+    <img class="sig-logo" src="assets/brand/juntu-logo-160.webp" alt="Juntu Market LLC logo" width="112" height="112" loading="lazy">
+    <div><span class="eyebrow">Juntu Signature Collection</span><h2 id="sgh">Rooted in Tradition. Proudly Juntu.</h2>
+      <p>Traditional ingredients and familiar flavors brought together under our own brand — every pack carries the Juntu Market label from our Memphis store.</p></div>
+    <a class="btn y" href="#juntu-collection">Shop the Juntu Collection</a>
+  </div></section>
+  <section class="sig-prods"><div class="wrap">${grid(s, "rail")}</div></section>
+
+  <section class="sec" aria-labelledby="ah"><div class="wrap feat">
+    <a class="feat-img" href="#shop-african"><img src="assets/brand/african-tall.webp" alt="Plantain, millet, black-eyed peas and cassava" width="600" height="800" loading="lazy">
+      <div><h2 id="ah">African Favorites</h2><p>Garri, fufu, honey beans, Maggi, Milo and the staples of West African kitchens.</p><b>Shop African Favorites →</b></div></a>
+    <div class="grid g4 rail">${afr.map(card).join("")}</div>
+  </div></section>
+
+  <section class="sec" style="padding-top:0" aria-labelledby="ch"><div class="wrap"><div class="carib">
+    <div class="carib-img"><img src="assets/dept/pepper.webp" alt="Red scotch bonnet peppers and cloves" width="320" height="320" loading="lazy"></div>
+    <div class="carib-body"><span class="eyebrow"><span class="ring" aria-hidden="true"></span>Caribbean Favorites</span>
+      <h2 id="ch">A taste of the islands, too.</h2><p>Caribbean pantry essentials and familiar ingredients, on the shelf in Memphis.</p>
+      <div class="hcards">${car.map(hcard).join("")}</div>
+      <p class="ask">${ic("chat", 18)}<span>Looking for a Caribbean staple you don’t see here? Our store carries more than is online — call or WhatsApp <a href="tel:${STORE.tel1}">${STORE.tel1d}</a>.</span></p>
+    </div></div></div></section>
+
+  <section class="sec" style="padding-top:0" aria-labelledby="ph"><div class="wrap">
+    ${sh('<span id="ph">Pantry essentials</span>', "Milk, margarine, tinned fish, noodles and custard — the cupboard basics.", '<a class="more" href="#shop-pantry">Shop pantry →</a>')}
+    <div class="plist">${pan.map(hcard).join("")}</div>
+  </div></section>
+
+  <section class="sec" style="background:var(--soft)" aria-labelledby="sph"><div class="wrap ffx">
+    <figure><img src="assets/brand/storefront-sq.webp" alt="Juntu African Market sign: Juntu Market LLC, Your Taste of Africa and the Caribbean, 901-691-2274" width="800" height="799" loading="lazy"><figcaption>${STORE.addr}, Memphis</figcaption></figure>
+    <div><span class="eyebrow"><span class="ring" aria-hidden="true"></span>Pickup &amp; shipping</span>
+      <h2 id="sph">Your Neighborhood Market. Now Online.</h2>
+      <p>Order online and collect from our Memphis store, or have eligible groceries shipped to you.</p>
+      <div class="fopts">
+        <div>${ic("store", 24, 1.7)}<b>Free store pickup</b><span>Memphis customers collect at the store. We message you when your order is ready.</span></div>
+        <div>${ic("truck", 24, 1.7)}<b>U.S. shipping</b><span>Sealed, shelf-stable groceries ship by FedEx. Cost is calculated at checkout.</span></div>
+        <div>${ic("leaf", 24, 1.7)}<b>Fresh, frozen &amp; prepared</b><span>Halal meat, fish, produce and Jamila Kitchen meals are pickup only.</span></div>
+      </div>
+      <div class="addr">${ic("pin")}<div>${STORE.addr}, ${STORE.city}<span>Store hours: please call · ${STORE.tel1d} (call &amp; WhatsApp) · ${STORE.tel2d}</span></div></div>
+      <div class="btns"><button class="btn" type="button" data-act="shop-pickup">${ic("store", 18)} Shop for pickup</button><a class="btn ghost" href="${STORE.map}" target="_blank" rel="noopener">${ic("pin", 18)} Directions</a><a class="btn ghost" href="${STORE.wa}" target="_blank" rel="noopener">${ic("chat", 18)} WhatsApp</a></div>
     </div>
   </div></section>
 
-  <section class="ben" aria-label="Shopping benefits"><div class="wrap"><ul>
-    <li>${ic("truck", 26, 1.6)}<span><b>U.S. Shipping</b><span>FedEx delivery where available</span></span></li>
-    <li>${ic("store", 26, 1.6)}<span><b>Local Store Pickup</b><span>Memphis, Tennessee</span></span></li>
-    <li>${ic("leaf", 26, 1.6)}<span><b>Authentic Products</b><span>African &amp; Caribbean favorites</span></span></li>
-    <li>${ic("lock", 26, 1.6)}<span><b>Secure Checkout</b><span>Simple online ordering</span></span></li>
-  </ul></div></section>
-
-  <section class="sec"><div class="wrap">${sh("Shop by category", "", '<a href="#shop">Shop all →</a>')}<div class="cats">${catTiles}</div></div></section>
-
-  <section class="sec soft sig" id="signature"><div class="wrap sig-grid">
-    <div class="sig-intro"><span class="eyebrow"><span class="ring" aria-hidden="true"></span>Juntu Signature Collection</span>
-      <h2>From Africa to Your Table</h2>
-      <p>Discover the Juntu Signature Collection — traditional ingredients and familiar flavors brought together under our own brand.</p>
-      <a class="btn" href="#juntu-collection">Shop the Juntu Collection</a></div>
-    <div class="sig-list grid">${s.map(card).join("")}</div>
-  </div></section>
-
-  <section class="sec"><div class="wrap">${sh("Everyday favorites", "Pantry staples and familiar brands for the week ahead.", '<a href="#shop">See everything →</a>')}${grid((everyday.length >= 8 ? everyday : everyday.concat(s.filter(p => !everyday.includes(p)))).slice(0, everyday.length >= 8 ? 8 : 4))}</div></section>
-
-  <section class="sec" style="padding-top:0"><div class="wrap duo">
-    <div class="panel"><h3>African Favorites</h3><p>Traditional grains, cooking oils, seasonings, beverages and pantry ingredients.</p>
-      <div class="mini">${afr.map(p => `<a href="#p-${p.id}"><img src="${imgS(p)}" alt="${esc(alt(p))}" width="160" height="160" loading="lazy">${esc(p.name)}</a>`).join("")}</div>
-      <a class="btn ghost" href="#shop-african">Shop African Favorites</a></div>
-    <div class="panel"><h3>Caribbean Favorites</h3><p>Caribbean pantry essentials, sauces, spices, beverages and familiar ingredients.</p>
-      <div class="mini">${car.map(p => `<a href="#p-${p.id}"><img src="${imgS(p)}" alt="${esc(alt(p))}" width="160" height="160" loading="lazy">${esc(p.name)}</a>`).join("")}</div>
-      <div class="ask" style="margin-bottom:18px"><b>Looking for a Caribbean staple?</b>Our Memphis store carries more than you see online. Call or WhatsApp <a href="tel:${STORE.tel1}">${STORE.tel1d}</a> and we’ll check the shelf for you.</div>
-      <a class="btn ghost" href="#shop-caribbean">Shop Caribbean Favorites</a></div>
-  </div></section>
-
-  <section class="sec soft"><div class="wrap store">
-    <figure><img src="assets/brand/storefront-576.webp" srcset="assets/brand/storefront-576.webp 576w, assets/brand/storefront-1152.webp 1152w" sizes="(max-width:900px) 92vw, 45vw" alt="Juntu African Market storefront at 3826 E Shelby Dr, Memphis" width="576" height="768" loading="lazy"></figure>
-    <div><span class="eyebrow"><span class="ring" aria-hidden="true"></span>Local pickup</span>
-      <h2>Your Neighborhood Market. Now Online.</h2>
-      <p>Shop your favorite African and Caribbean products online and collect your order directly from our Memphis store.</p>
-      <div class="addr">${ic("pin")}<div>${STORE.addr}<span>${STORE.city}</span></div></div>
-      <div class="addr">${ic("phone")}<div><a href="tel:${STORE.tel1}">${STORE.tel1d}</a> · call &amp; WhatsApp<span>Also <a href="tel:${STORE.tel2}">${STORE.tel2d}</a></span></div></div>
-      <div class="btns"><button class="btn" type="button" data-act="shop-pickup">${ic("store", 18)} Shop for Pickup</button><a class="btn ghost" href="${STORE.map}" target="_blank" rel="noopener">${ic("pin", 18)} Get directions</a><a class="btn ghost" href="${STORE.wa}" target="_blank" rel="noopener">${ic("chat", 18)} WhatsApp</a></div>
-      <div class="dept"><div><b>Halal meat</b><span>Beef, lamb, goat &amp; chicken in store</span></div><div><b>Fish</b><span>Meat &amp; fish market in store</span></div><div><b>Fresh vegetables</b><span>In store, pickup only</span></div></div>
-    </div>
-  </div></section>
-
-  <section class="sec"><div class="wrap"><div class="jam">
-    <div><span class="eyebrow"><span class="ring" aria-hidden="true"></span>Jamila Kitchen</span>
-      <h2>Homemade Flavors. Authentic Traditions.</h2>
-      <p>Jamila Kitchen brings home-style prepared food to our Memphis customers. Ask us what’s cooking.</p>
-      <a class="btn ghost" href="#jamila">About Jamila Kitchen</a></div>
-    <ul><li>${ic("pot", 20)}<span>Prepared food for local customers in Memphis</span></li><li>${ic("store", 20)}<span>Collected from our store on E Shelby Dr</span></li><li>${ic("chat", 20)}<span>Call or WhatsApp to ask about today’s dishes</span></li></ul>
+  <section class="sec" aria-labelledby="jh"><div class="wrap"><div class="jamb">
+    <span class="pot">${ic("pot", 28, 1.7)}</span>
+    <div><h2 id="jh">Jamila Kitchen — Homemade Flavors. Authentic Traditions.</h2><p>Home-style prepared food for our Memphis customers. Ask us what’s cooking today.</p></div>
+    <a class="btn ghost" href="#jamila">About Jamila Kitchen</a>
   </div></div></section>
+
+  <section class="sec" style="padding-top:0"><div class="wrap">${aboutBlock()}</div></section>
 
   ${rv.length ? `<section class="sec" style="padding-top:0"><div class="wrap">${sh("Recently viewed")}${grid(rv)}</div></section>` : ""}`;
 }
@@ -398,14 +441,12 @@ function emptySearch() {
   ${sh("Popular from our own label")}${grid(sig())}<div style="height:48px"></div>`;
 }
 function pCollection() {
-  return `<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a>›<a href="#shop">Shop</a>›<span aria-current="page">Juntu Signature Collection</span></nav></div>
-  <section class="sec soft" style="margin-top:14px"><div class="wrap" style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:center">
-    <img src="assets/brand/juntu-logo-160.webp" alt="Juntu Market LLC logo" width="110" height="110">
-    <div><span class="eyebrow">Juntu Signature Collection</span><h1 class="ptitle" style="margin-top:6px">From Africa to Your Table</h1>
-    <p class="psub" style="margin:0">Discover the Juntu Signature Collection — traditional ingredients and familiar flavors brought together under our own brand. Every pack carries the Juntu Market label from our Memphis store.</p></div>
-  </div></section>
-  <section class="sec"><div class="wrap">${grid(sig())}
-  <div class="card-box" style="margin-top:32px"><b>Know it by another name?</b> Search works with the names you grew up with: thiakry or dégué, baobab or bouye, peanut powder or noflaye, arraw or millet granules.</div></div></section>`;
+  return `<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a>›<a href="#shop">Shop</a>›<span aria-current="page">Juntu Signature Collection</span></nav>
+  <div class="colhead"><img src="assets/brand/juntu-logo-160.webp" alt="Juntu Market LLC logo" width="96" height="96">
+    <div><span class="eyebrow">Juntu Signature Collection</span><h1>Rooted in Tradition. Proudly Juntu.</h1>
+    <p>Traditional ingredients and familiar flavors brought together under our own brand. Every pack carries the Juntu Market label from our Memphis store.</p></div></div>
+  ${grid(sig())}
+  <div class="card-box" style="margin:28px 0 56px"><b>Know it by another name?</b> Search works with the names you grew up with: thiakry or dégué, baobab or bouye, peanut powder or noflaye, arraw or millet granules.</div></div>`;
 }
 function pProduct(id) {
   const p = byId(id);
@@ -599,6 +640,7 @@ function render() {
   else if (h === "account") html = pAccount();
   else if (h === "track") html = pTrack();
   else if (h === "pickup") html = pPickup();
+  else if (h === "about") { html = `<div class="wrap"><nav class="crumbs"><a href="#home">Home</a>›<span>About</span></nav></div><section class="sec" style="padding-top:14px"><div class="wrap">${aboutBlock(true)}</div></section>`; title = "About Juntu African Market | Memphis, TN"; }
   else if (h === "fresh-halal") html = pFresh();
   else if (h === "jamila") { html = pJamila(); title = "Jamila Kitchen | Juntu African Market"; }
   else if (pages[h]) html = pages[h]();
@@ -651,6 +693,7 @@ document.addEventListener("click", e => {
   if (t.dataset.blocked) { e.preventDefault(); toast(conflicts().length ? "Resolve the pickup-only items first" : "Enter a ZIP code to estimate shipping"); return; }
   switch (a) {
     case "add": add(id); break;
+    case "tab": featTab = t.dataset.k; $$(".tabs [data-act=tab]").forEach(b => b.setAttribute("aria-selected", b.dataset.k === featTab)); $("#featgrid").innerHTML = grid(featList()); break;
     case "inc": setQty(id, qty(id) + 1); break;
     case "dec": setQty(id, qty(id) - 1); break;
     case "rm": { const p = byId(id); setQty(id, 0); if ($("#modal").classList.contains("on")) closeAll(); if (p) toast(`Removed ${p.name}`, "Undo", () => add(id, 1, true)); break; }
@@ -738,6 +781,12 @@ document.addEventListener("click", e => { if (!e.target.closest("#mega,[data-act
 window.addEventListener("hashchange", () => { closeAll(); render(); });
 window.addEventListener("storage", e => { if (e.key === KEY) { try { Object.assign(S, JSON.parse(e.newValue || "{}")); } catch (x) {} render(); } });
 $("#yr").textContent = new Date().getFullYear();
+const hdr = $("#hdr");
+window.addEventListener("scroll", () => hdr.classList.toggle("sm", scrollY > 90), { passive: true });
+let wide;
+function syncFooter() { const w = innerWidth > 760; if (w !== wide) { wide = w; $$(".fd").forEach(d => d.open = w); } }
+syncFooter(); window.addEventListener("resize", syncFooter);
+$$(".fd summary").forEach(su => su.addEventListener("click", e => { if (innerWidth > 760) e.preventDefault(); }));
 
 render();
 

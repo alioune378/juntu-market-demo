@@ -24,6 +24,12 @@ Prepared by Dalal Technologies · private, do not publish
 - Fresh halal meat, fish, produce and Jamila Kitchen are presented as in-store/pickup information only. No photos or menu were supplied, so nothing was invented. The pickup-only logic is built and tested (set `ship:false` on a product).
 - `docs/shopify-products-import.csv` holds all 19 products as **draft**. Upload the images to Shopify Files and swap in their URLs before importing. `docs/catalog-verification-checklist.md` is the sheet to review with Khadija.
 
+## 2b. Photography notes (redesign, Nov 2026)
+- The 8 Juntu photos were cut out onto a uniform studio background (#F5F5F3) with a soft shadow.
+- On palm oil, Peak and Sunquick, the hands were removed by tracing each product's outline. Packaging, labels, sizes and text are unaltered; only a thin strip at the edges (under 5% of each image) was filled where fingers overlapped. New studio photos of these three are still recommended before launch.
+- The hero image and department circles (rice, spices, beans, peppers, hibiscus, cassava) come from the AI-generated ingredient photos in the Africa Supermarket pack. They are mood imagery, not products. Replace them with a real photo shoot of Juntu's ingredients when possible.
+- `assets/brand/hero-1600.webp` (desktop) and `hero-m.webp` (mobile) are separate crops; the mobile hero is designed independently.
+
 ## 3. Shopify integration path
 1. Create the Shopify store (Basic plan is enough to start) and connect the domain.
 2. Build an Online Store 2.0 theme from this design. Each homepage block becomes a reusable section: announcement bar, hero, benefits, category tiles, Signature Collection, product rows, African/Caribbean panels, store pickup band, Jamila Kitchen, footer. The owner can then edit banners, text and featured collections in the theme editor without code.
