@@ -413,7 +413,8 @@ legend{font-weight:800;padding:0 6px;font-size:15.5px}
 
 
 /* ===== Final refinement (Nov 2026) ===== */
-.disp{font-family:Fraunces,Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:-.015em;font-optical-sizing:auto}
+/* WONK 0: keep Fraunces letters upright (no leaning "f", "h", "n" at display sizes) */
+.disp{font-family:Fraunces,Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:-.015em;font-optical-sizing:auto;font-variation-settings:"WONK" 0}
 .btn.lg{min-height:50px;padding:0 24px;font-size:15.5px}
 .btn.gold{background:var(--gold-l);border-color:var(--gold-l);color:var(--deep)}
 .btn.gold:hover{background:#e6cb88;border-color:#e6cb88}
