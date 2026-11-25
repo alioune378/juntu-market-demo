@@ -3,7 +3,7 @@
    PICTURE: a sunlit top-down spread of grains, beans, spices and plantain with genuine Juntu packs set in front of it.
    COLOUR and TYPE: 80% white, Juntu green #087C36 for actions and the flagship band, yellow #F3B72C / red #C93632 as logo-ring accents; Manrope.
    LAYOUT: compact header, photo hero, round department tiles, then a different composition per section — rail, banner, feature + grid, list, info columns. */
-:root{--deep:#0B3F25;--cream:#FBF6EA;--cream-d:#F3EAD3;--gold:#B8913F;--gold-l:#D9BC74;--hdr:120px;--g:#087C36;--g-d:#06612a;--g-l:#e9f3ec;--y:#F3B72C;--y-l:#fdf4dc;--r:#C93632;--ink:#20251F;--mut:#5f675f;--soft:#f6f6f4;--img:#f5f5f3;--line:#e6e8e4;--rad:6px;--sh:0 1px 2px rgba(32,37,31,.06),0 8px 24px rgba(32,37,31,.08);color-scheme:light}
+:root{--deep:#0B3F25;--cream:#FBF6EA;--cream-d:#F3EAD3;--gold:#B8913F;--gold-l:#D9BC74;--hdr:120px;--g:#087C36;--g-d:#06612a;--g-l:#e9f3ec;--y:#F3B72C;--y-l:#fdf4dc;--r:#C93632;--ink:#20251F;--mut:#4f574f;--soft:#f6f6f4;--img:#f5f5f3;--line:#e6e8e4;--rad:6px;--sh:0 1px 2px rgba(32,37,31,.06),0 8px 24px rgba(32,37,31,.08);color-scheme:light}
 *{box-sizing:border-box;min-width:0}
 html{scroll-padding-top:calc(var(--hdr) + 12px);-webkit-text-size-adjust:100%}
 html.lock{overflow:hidden}
@@ -113,7 +113,7 @@ h1,h2,h3{letter-spacing:-.02em}
 .hero-copy{padding-block:44px;max-width:540px}
 .hero h1{font-size:clamp(36px,4.2vw,56px);line-height:1.02;letter-spacing:-.035em;margin:12px 0 16px;font-weight:800;text-wrap:balance}
 .hero h1 span{color:var(--g)}
-.hero p.lead{font-size:18px;color:#3d443c;margin:0 0 24px;max-width:42ch}
+.hero p.lead{font-size:18px;color:#343a33;margin:0 0 24px;max-width:42ch}
 .ctas{display:flex;gap:10px;flex-wrap:wrap}
 .hero .facts{display:flex;gap:18px;flex-wrap:wrap;margin-top:24px;font-size:13.5px;font-weight:700}
 .hero .facts span{display:flex;align-items:center;gap:6px}
@@ -421,7 +421,8 @@ legend{font-weight:800;padding:0 6px;font-size:15.5px}
 
 /* hero */
 .hero-copy{max-width:600px}
-.hero h1.disp{font-size:clamp(38px,4vw,54px);line-height:1.02;letter-spacing:-.02em;font-weight:700}
+.hero h1.disp{font-size:clamp(38px,4vw,54px);line-height:1.08;letter-spacing:-.02em;font-weight:700;margin:12px 0 14px}
+.hero h1.disp span{margin-top:.04em}
 .hero h1 span{display:block;color:var(--g)}
 .hero .eyebrow{font-size:12.5px;letter-spacing:.02em}
 .hero-prods .hp-h span{font-weight:800}
@@ -677,7 +678,7 @@ legend{font-weight:800;padding:0 6px;font-size:15.5px}
   .ful{flex-direction:column;gap:0;padding:2px 4px;min-width:48px}
   .ful em{display:block;font-size:10.5px;font-weight:800;color:var(--g-d);line-height:1.1}
   .hero-img{height:168px}
-  .hero h1.disp{font-size:31px;margin:6px 0 8px;line-height:1.05}
+  .hero h1.disp{font-size:31px;margin:6px 0 8px;line-height:1.08}
   .hero .eyebrow{font-size:11.5px}
   .ctas .btn.lg{min-height:46px;font-size:14px;padding:0 8px}
   .depts{display:flex}
