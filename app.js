@@ -264,7 +264,7 @@ function fulfilModal() {
   ${modeToggle()}
   ${S.mode === "pickup"
     ? `<div class="addr">${ic("store")}<div>Juntu African Market<span>${STORE.addr}, ${STORE.city}</span><span>No shipping fee. We’ll let you know when your order is ready.</span></div></div>`
-    : `<form class="zipf" data-form="zip"><label class="sr" for="mzip">Delivery ZIP code</label><input id="mzip" inputmode="numeric" maxlength="5" placeholder="Delivery ZIP code" value="${esc(S.zip)}"><button type="submit">Save</button></form><p class="err" id="mziperr" role="alert"></p><p class="note">Eligible shelf-stable groceries ship within the United States. ${esc(CFG.shipping?.pickupOnlyNote || "")}</p>`}
+    : `<form class="zipf" data-form="zip"><label class="sr" for="mzip">Delivery ZIP code</label><input id="mzip" inputmode="numeric" maxlength="5" placeholder="Delivery ZIP code" value="${esc(S.zip)}"><button type="submit">Save</button></form><p class="err" id="mziperr" role="alert"></p><p class="note">Shipping is available on eligible shelf-stable groceries; delivery areas are confirmed at checkout. ${esc(CFG.shipping?.pickupOnlyNote || "")}</p>`}
   <button class="btn block" type="button" data-act="close" style="margin-top:14px">Continue shopping</button>`);
 }
 
@@ -312,9 +312,14 @@ function renderDrawer() {
 /* ---------- pages ---------- */
 const sig = () => inCat("juntu");
 let featTab = "all";
-const FEAT = ["juntu-thiakry", "afrigrid-ijebu-garri", "maggi-chicken-cubes", "milo-tin-1-5kg", "tropical-sun-fragrant-rice", "juntu-baobab-powder", "peak-evaporated-milk", "tropiway-cocoyam-fufu", "sunquick-mandarin", "honey-beans-oloyin"];
-const featList = () => (featTab === "all" ? FEAT.map(byId).filter(Boolean) : inCat(featTab)).slice(0, 10);
-const featTabs = [["all", "Featured"], ["juntu", "Juntu"], ["rice-grains", "Grains & Flours"], ["pantry", "Pantry"], ["drinks", "Beverages"]];
+/* Homepage curation: each product appears in only one homepage section (19 products, no repeats).
+   Featured = everyday West African staples · Signature = Juntu label · African = more kitchen staples
+   · Caribbean = island favorites · Pantry = cupboard basics. Tabs other than "Featured" are user-driven. */
+const FEAT = ["afrigrid-ijebu-garri", "tropiway-cocoyam-fufu", "honey-beans-oloyin", "maggi-chicken-cubes", "milo-tin-1-5kg", "sunquick-mandarin"];
+const AFR = ["titus-sardines", "indomie-onion-chicken", "birds-custard"];
+const PAN = ["nido-fortificada", "rosa-margarine-450g", "peak-evaporated-milk"];
+const featList = () => (featTab === "all" ? FEAT.map(byId).filter(Boolean) : inCat(featTab)).slice(0, 6);
+const featTabs = [["all", "Best sellers"], ["juntu", "Juntu"], ["rice-grains", "Grains & Flours"], ["pantry", "Pantry"], ["drinks", "Beverages"]];
 
 /* Store photos: shown whole (never cropped) at their natural 1122×1402 ratio; tap/click opens full screen. */
 const photo = (i, eager) => { const ph = PHOTOS[i]; return `<figure class="sphoto">
@@ -354,13 +359,14 @@ const trust = () => `<ul class="trust" aria-label="Why shop with Juntu">
   <li>${ic("leaf", 20)}<span><b>Authentic groceries</b>African &amp; Caribbean staples</span></li>
   <li>${ic("check", 20)}<span><b>Our own Juntu label</b>Exclusive Signature products</span></li>
   <li>${ic("bag", 20)}<span><b>Free local pickup</b>Order online, collect in store</span></li>
-  ${SHIP_ON ? `<li>${ic("truck", 20)}<span><b>Shipping on eligible items</b>Shelf-stable groceries, U.S.</span></li>` : ""}
+  ${SHIP_ON ? `<li>${ic("truck", 20)}<span><b>Shipping available</b>On eligible shelf-stable groceries</span></li>` : ""}
   <li>${ic("phone", 20)}<span><b>Talk to the store</b><a href="tel:${STORE.tel1}">${STORE.tel1d}</a></span></li>
 </ul>`;
 const sigCard = p => `<article class="scard">
   <a class="sc-im" href="#p-${p.id}" tabindex="-1" aria-hidden="true"><img src="assets/products/${p.img}-480.webp" alt="" width="480" height="480" loading="lazy"></a>
-  <div class="sc-bd"><h3><a href="#p-${p.id}">${esc(p.name.replace(/^Juntu /, ""))}</a></h3>
-  <span class="sc-k">Juntu Signature${p.size ? " · " + esc(p.size) : ""}</span>
+  <div class="sc-bd"><span class="sc-k">Juntu Signature${p.size ? " · " + esc(p.size) : ""}</span>
+  <h3><a href="#p-${p.id}">${esc(p.name.replace(/^Juntu /, ""))}</a></h3>
+  ${p.aka ? `<span class="sc-aka">${esc(p.aka)}</span>` : ""}
   <div class="sc-row"><span class="price">${money(p.price)}</span><div class="add" data-add="${p.id}" data-sm="1">${addCtl(p, 1)}</div></div></div></article>`;
 function fulfilSection() {
   return `<section class="sec ffx-s" aria-labelledby="sph"><div class="wrap">
@@ -375,9 +381,9 @@ function fulfilSection() {
 }
 function pHome() {
   const s = sig();
-  const afr = ["afrigrid-ijebu-garri", "tropiway-cocoyam-fufu", "honey-beans-oloyin", "maggi-chicken-cubes", "titus-sardines", "indomie-onion-chicken", "milo-tin-1-5kg", "birds-custard"].map(byId).filter(Boolean);
+  const afr = AFR.map(byId).filter(Boolean);
   const car = inCat("caribbean");
-  const pan = ["nido-fortificada", "rosa-margarine-450g", "peak-evaporated-milk", "titus-sardines", "indomie-onion-chicken", "birds-custard"].map(byId).filter(Boolean);
+  const pan = PAN.map(byId).filter(Boolean);
   const heroP = ["juntu-baobab-powder", "juntu-thiakry", "juntu-red-palm-oil"].map(byId).filter(Boolean);
   const rv = S.recent.map(byId).filter(Boolean).slice(0, 5);
   return `
@@ -402,9 +408,9 @@ function pHome() {
   </div></section>
 
   <section class="sec" style="padding-top:0" aria-labelledby="fh"><div class="wrap">
-    ${sh('<span id="fh">Shop our shelves</span>', "Everyday staples and our own Juntu products.", '<a class="more" href="#shop">See all ' + P.length + ' →</a>')}
+    ${sh('<span id="fh">Shop our shelves</span>', "Everyday West African staples from our Memphis shelves.", '<a class="more" href="#shop">See all ' + P.length + ' →</a>')}
     <div class="tabs" role="tablist" aria-label="Product groups">${featTabs.map(([k, t]) => `<button type="button" role="tab" data-act="tab" data-k="${k}" aria-selected="${featTab === k}">${t}</button>`).join("")}</div>
-    <div id="featgrid">${grid(featList())}</div>
+    <div id="featgrid">${grid(featList(), "g6")}</div>
   </div></section>
 
   <section class="sig" aria-labelledby="sgh"><div class="wrap">
@@ -422,8 +428,8 @@ function pHome() {
 
   <section class="sec" aria-labelledby="ah"><div class="wrap feat">
     <a class="feat-img afr" href="#shop-african"><img src="assets/brand/pantry-wide.webp" alt="Kente cloth beneath bowls of hibiscus, rice, beans, millet, flour and spices with cassava, plantain and palm oil" width="1000" height="667" loading="lazy">
-      <div><span class="fi-k">African Favorites</span><h2 id="ah">The flavors of a West African kitchen.</h2><p>Garri, fufu, honey beans, Maggi, Milo and the staples you grew up cooking with.</p><b>Shop African Favorites →</b></div></a>
-    <div class="grid g4 rail">${afr.map(card).join("")}</div>
+      <div><span class="fi-k">African Favorites</span><h2 id="ah">The flavors of a West African kitchen.</h2><p>Sardines, noodles, custard and the everyday staples you grew up cooking with.</p><b>Shop African Favorites →</b></div></a>
+    <div class="grid g3 rail">${afr.map(card).join("")}</div>
   </div></section>
 
   <section class="sec" style="padding-top:0" aria-labelledby="ch"><div class="wrap"><div class="carib">
@@ -436,7 +442,7 @@ function pHome() {
     </div></div></div></section>
 
   <section class="sec" style="padding-top:0" aria-labelledby="ph"><div class="wrap">
-    ${sh('<span id="ph">Pantry essentials</span>', "Milk, margarine, tinned fish, noodles and custard — the cupboard basics.", '<a class="more" href="#shop-pantry">Shop pantry →</a>')}
+    ${sh('<span id="ph">Pantry essentials</span>', "Powdered milk, evaporated milk and margarine — the cupboard basics.", '<a class="more" href="#shop-pantry">Shop pantry →</a>')}
     <div class="plist">${pan.map(hcard).join("")}</div>
   </div></section>
 
@@ -497,7 +503,7 @@ function pCollection() {
   return `<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a>›<a href="#shop">Shop</a>›<span aria-current="page">Juntu Signature Collection</span></nav>
   <div class="colhead"><img src="assets/brand/juntu-logo-160.webp" alt="Juntu Market LLC logo" width="96" height="96">
     <div><span class="sig-k">The Juntu Signature Collection</span><h1 class="disp">Rooted in Tradition.<span> Proudly Juntu.</span></h1>
-    <p>Traditional ingredients and familiar flavors brought together under our own brand. Every pack carries the Juntu Market label from our Memphis store${SHIP_ON ? ", and every Juntu product is eligible for U.S. shipping" : ""}.</p></div></div>
+    <p>Traditional ingredients and familiar flavors brought together under our own brand. Every pack carries the Juntu Market label from our Memphis store${SHIP_ON ? ", and every Juntu product is eligible for shipping" : ""}.</p></div></div>
   <div class="sig-grid col">${sig().map(sigCard).join("")}</div>
   <div class="card-box" style="margin:28px 0 56px"><b>Know it by another name?</b> Search works with the names you grew up with: thiakry or dégué, baobab or bouye, peanut powder or noflaye, arraw or millet granules.</div></div>`;
 }
@@ -521,12 +527,12 @@ function pProduct(id) {
       <div class="incart" data-add="${p.id}" data-pdp="1">${qty(p.id) ? `${ic("check", 16, 2.4)} ${qty(p.id)} in your cart · <button class="link" type="button" data-act="open-cart">View cart</button>` : ""}</div>
       <button class="btn ghost block" type="button" data-act="buy-now" data-id="${p.id}">Buy now</button>
       <div class="elig">
-        ${!SHIP_ON ? "" : p.ship ? `<div>${ic("truck")}<span><b>Eligible for U.S. shipping</b><span>Shipping is calculated at checkout from your address.</span></span></div>` : `<div>${ic("truck")}<span><b>Not available for shipping</b><span>Fresh and temperature-sensitive items are pickup-only.</span></span></div>`}
+        ${!SHIP_ON ? "" : p.ship ? `<div>${ic("truck")}<span><b>Eligible for shipping</b><span>Shipping is calculated at checkout from your address.</span></span></div>` : `<div>${ic("truck")}<span><b>Not available for shipping</b><span>Fresh and temperature-sensitive items are pickup-only.</span></span></div>`}
         <div>${ic("store")}<span><b>Free store pickup</b><span>${STORE.addr}, Memphis — we’ll notify you when it’s ready.</span></span></div>
       </div>
       <details class="acc" open><summary>Product information</summary><p>${esc(p.desc)}</p>${p.label ? `<p style="color:var(--mut)">${esc(p.label)}</p>` : ""}</details>
       <details class="acc"><summary>Ingredients &amp; allergens</summary><p>Please read the ingredient list and allergen information printed on the package before use. Questions? Call <a href="tel:${STORE.tel1}">${STORE.tel1d}</a>.</p></details>
-      <details class="acc"><summary>Shipping &amp; pickup</summary><p>${p.ship ? "Shelf-stable item: available for U.S. shipping or free pickup in Memphis." : "Pickup-only item: collect from our Memphis store."} <a href="#shipping-info">Shipping information</a></p></details>
+      <details class="acc"><summary>Shipping &amp; pickup</summary><p>${p.ship ? "Shelf-stable item: available for shipping or free pickup in Memphis." : "Pickup-only item: collect from our Memphis store."} <a href="#shipping-info">Shipping information</a></p></details>
     </div>
   </div>
   <section style="padding-bottom:56px">${sh("You may also like")}${grid([...rel, ...more])}</section></div>`;
@@ -665,7 +671,7 @@ function pFresh() {
 }
 const DRAFT = `<div class="draft" role="note"><b>Draft for owner review.</b> This policy has not yet been approved by Juntu Market LLC and must be reviewed before publication. Questions in the meantime: <a href="tel:${STORE.tel1}">${STORE.tel1d}</a>.</div>`;
 const pages = {
-  "shipping-info": () => infoPage("Shipping &amp; Pickup", `<p class="psub">Two ways to get your groceries: free pickup at our Memphis store${SHIP_ON ? ", or shipping on eligible products within the United States" : ""}.</p>
+  "shipping-info": () => infoPage("Shipping &amp; Pickup", `<p class="psub">Two ways to get your groceries: free pickup at our Memphis store${SHIP_ON ? ", or shipping on eligible products" : ""}.</p>
     <h2>Free Store Pickup</h2><p>Order online and collect your groceries at ${STORE.addr}, ${STORE.cityLong} once your order is ready. Please wait for our message before coming to the store.</p>
     ${SHIP_ON ? `<h2>What can ship</h2><p>Sealed, shelf-stable pantry goods such as grains, millet, flours, sealed cooking oils, seasonings and shelf-stable drinks. Each product page shows whether it can ship.</p>
     <h2>What is pickup only</h2><p>${esc(CFG.shipping?.pickupOnlyNote || "")}</p>
@@ -674,7 +680,7 @@ const pages = {
   faq: () => infoPage("Frequently Asked Questions", `<p class="psub">Quick answers about shopping with Juntu African Market.</p>
     ${[["Where is the store?", `Juntu African Market is at ${STORE.addr}, ${STORE.cityLong}. <a href="${STORE.map}" target="_blank" rel="noopener">Get directions</a>.`],
        ["Is store pickup free?", "Yes. Choose <i>Store pickup</i> at checkout and we’ll let you know when your order is ready to collect."],
-       ["Do you ship outside Memphis?", SHIP_ON ? "Eligible shelf-stable products can be shipped within the United States. Each product page shows whether it can ship, and the cost is calculated at checkout." : "Online orders are currently available for store pickup."],
+       ["Do you ship outside Memphis?", SHIP_ON ? "Shipping is available on eligible shelf-stable products. Each product page shows whether it can ship, and the cost is calculated at checkout." : "Online orders are currently available for store pickup."],
        ["Can fresh meat, frozen food or produce be shipped?", "No. Fresh meat, fish, frozen foods and produce are available for store pickup only."],
        ["What is the Juntu Signature Collection?", "Traditional ingredients packed under Juntu Market’s own label, such as red palm oil, baobab powder, thiakry, noflaye and arraw. <a href=\"#juntu-collection\">Shop the collection</a>."],
        ["I can’t find a product online.", `Our store carries more than is listed online — ${callLine()} and we’ll check for you.`],
@@ -719,6 +725,7 @@ function render() {
   $("#main").innerHTML = html;
   renderHeader();
   if (prev !== h) {
+    sg.classList.remove("on"); qi.setAttribute("aria-expanded", "false");
     if (backNav && pos[h] != null) { const y = pos[h]; requestAnimationFrame(() => scrollTo(0, y)); }
     else window.scrollTo(0, 0);
     backNav = false;
@@ -754,7 +761,7 @@ qi.addEventListener("keydown", e => {
     sIdx = (sIdx + (e.key === "ArrowDown" ? 1 : -1) + a.length) % a.length;
     a.forEach((x, i) => x.classList.toggle("act", i === sIdx)); qi.setAttribute("aria-activedescendant", a[sIdx].id || "");
   } else if (e.key === "Enter" && sIdx > -1 && a[sIdx]) { e.preventDefault(); a[sIdx].click(); }
-  else if (e.key === "Escape") { sg.classList.remove("on"); }
+  else if (e.key === "Escape") { e.stopPropagation(); sg.classList.remove("on"); qi.setAttribute("aria-expanded", "false"); }
 });
 $("#sform").addEventListener("submit", e => {
   e.preventDefault(); const v = qi.value.trim(); if (!v) return; runSearch(v);
@@ -778,7 +785,7 @@ document.addEventListener("click", e => {
     case "lb-close": lbClose(); break;
     case "lb-prev": lbGo(-1); break;
     case "lb-next": lbGo(1); break;
-    case "tab": featTab = t.dataset.k; $$(".tabs [data-act=tab]").forEach(b => b.setAttribute("aria-selected", b.dataset.k === featTab)); $("#featgrid").innerHTML = grid(featList()); break;
+    case "tab": featTab = t.dataset.k; $$(".tabs [data-act=tab]").forEach(b => b.setAttribute("aria-selected", b.dataset.k === featTab)); $("#featgrid").innerHTML = grid(featList(), "g6"); break;
     case "inc": setQty(id, qty(id) + 1); break;
     case "dec": setQty(id, qty(id) - 1); break;
     case "rm": { const p = byId(id); setQty(id, 0); if ($("#modal").classList.contains("on")) closeAll(); if (p) toast(`Removed ${p.name}`, "Undo", () => add(id, 1, true)); break; }
@@ -888,15 +895,25 @@ $(".skip").addEventListener("click", e => { e.preventDefault(); $("#main").focus
 $("#yr").textContent = new Date().getFullYear();
 hist.push((location.hash || "#home").slice(1) || "home");
 if (DEMO) $(".demo-pill").hidden = false;
+if (!SHIP_ON) $(".ann-ship")?.remove();
 /* Keep anchor jumps clear of the sticky header, and use a shorter search placeholder on phones. */
-const mqS = matchMedia("(max-width:760px)");
+const mqS = matchMedia("(max-width:980px)");
 function syncLayout() {
   document.documentElement.style.setProperty("--hdr", $("#hdr").offsetHeight + "px");
   qi.placeholder = mqS.matches ? qi.dataset.phShort : qi.dataset.phLong;
 }
 syncLayout(); addEventListener("resize", syncLayout);
+/* Compact sticky header once the shopper scrolls. Hysteresis (on past 140px, off under 24px) is wider than
+   the height the header loses, so the swap can never flicker back and forth. */
 const hdr = $("#hdr");
-window.addEventListener("scroll", () => hdr.classList.toggle("sm", scrollY > 90), { passive: true });
+let hdrSm = false;
+function syncHdr() {
+  const want = hdrSm ? scrollY > 24 : scrollY > 140;
+  if (want === hdrSm) return;
+  hdrSm = want; hdr.classList.toggle("sm", want);
+  requestAnimationFrame(syncLayout);
+}
+window.addEventListener("scroll", syncHdr, { passive: true }); syncHdr();
 let wide;
 function syncFooter() { const w = innerWidth > 760; if (w !== wide) { wide = w; $$(".fd").forEach(d => d.open = w); } }
 syncFooter(); window.addEventListener("resize", syncFooter);

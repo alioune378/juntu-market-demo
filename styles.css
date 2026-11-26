@@ -670,7 +670,6 @@ legend{font-weight:800;padding:0 6px;font-size:15.5px}
   .ways{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:760px){
-  .ann-l{display:none}
   .ann .wrap{justify-content:space-between}
   .hrow{height:62px;gap:8px}
   .brand img{width:46px;height:46px}
@@ -718,9 +717,6 @@ legend{font-weight:800;padding:0 6px;font-size:15.5px}
   .lb figure{padding-bottom:64px}
   .bnav a,.bnav button{min-height:58px}
 }
-@media (max-width:440px){
-  .ann-s{display:none}
-}
 @media (max-width:380px){
   .hero h1.disp{font-size:28px}
   .ctas .btn.lg{font-size:13px}
@@ -729,4 +725,100 @@ legend{font-weight:800;padding:0 6px;font-size:15.5px}
   #featgrid .card:nth-child(n+10){display:none}
   .grid.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
   .hcards{grid-template-columns:minmax(0,1fr)}
+}
+
+/* ===== Client presentation refinements (Nov 26 2026) =====
+   Larger logo + JUNTU MARKET wordmark, two-row mobile header with compact sticky state, clearer
+   announcement bar, responsive hero CTAs, tighter product cards, premium Signature layout. */
+
+/* announcement */
+.ann .wrap{min-height:34px;padding-block:3px}
+.ann-dot{margin:0 .55em;color:var(--y)}
+.demo-pill{font-size:10.5px;font-weight:700;padding:1px 7px;border-color:rgba(255,255,255,.26);color:rgba(255,255,255,.78);letter-spacing:.02em}
+
+/* header + brand */
+.hrow{height:auto;min-height:100px;padding-block:7px;gap:18px}
+.hdr.sm .hrow{height:auto;min-height:64px;padding-block:5px}
+.brand{gap:12px}
+.brand img{width:86px;height:86px}
+.hdr.sm .brand img{width:52px;height:52px}
+.brand-t{display:block}
+.brand-t b{display:block;font-size:23px;line-height:1;font-weight:800;letter-spacing:.07em;color:var(--ink)}
+.brand-t b em{font-style:normal;color:var(--g)}
+.brand-t small{display:block;font-size:12.5px;font-weight:600;color:var(--mut);margin-top:6px;letter-spacing:.005em;line-height:1.3}
+.hdr.sm .brand-t b{font-size:19px}
+.hdr.sm .brand-t small{display:none}
+
+/* product cards: no reserved blank lines; prices and Add buttons still align per row */
+.card h3{min-height:0;margin:1px 0 0}
+.card .sz{min-height:0;margin-top:2px}
+.card .bd:not(:has(.sz)) h3{margin-bottom:0}
+.card .row{margin-top:auto;padding-top:8px}
+.grid.g6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.grid.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.feat-img{min-height:0}
+#featgrid .card{display:flex}
+
+/* Juntu Signature */
+.sc-bd{padding:12px 12px 13px}
+.sc-k{margin:0 0 3px}
+.sc-bd h3{min-height:0;font-size:15px}
+.sc-aka{display:block;font-size:12.5px;color:var(--mut);line-height:1.35;margin:3px 0 10px}
+
+@media (max-width:1180px){
+  .brand img{width:76px;height:76px}
+  .brand-t small{display:block;font-size:11.5px;max-width:190px}
+  .brand-t b{font-size:21px}
+  .hrow{min-height:90px;gap:14px}
+  .grid.g6{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:980px){
+  .brand-t small{max-width:160px}
+}
+@media (max-width:760px){
+  html{scroll-padding-top:calc(var(--hdr) + 8px)}
+  .ann .wrap{min-height:0;padding-block:6px;gap:10px}
+  .ann p{font-size:11.5px;line-height:1.35}
+  .ann-ship{display:block}
+  .ann-dot{display:none}
+  .demo-pill{font-size:10px;padding:1px 6px}
+
+  /* row 1: brand + pickup · row 2: full-width search */
+  .hrow{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"brand act" "search search";height:auto;min-height:0;gap:8px 10px;padding-block:8px 10px}
+  .brand{grid-area:brand;gap:10px}
+  .brand span.brand-t{display:block}
+  .brand img{width:64px;height:64px}
+  .brand-t b{font-size:20px;letter-spacing:.06em}
+  .brand-t small{font-size:11px;margin-top:4px;max-width:none}
+  .search{grid-area:search;max-width:none;width:100%}
+  .search form{height:44px}
+  .hdr-act{grid-area:act;margin-left:0}
+  /* compact sticky: one row, logo + search + pickup */
+  .hdr.sm .hrow{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"brand search act";height:auto;min-height:0;padding-block:6px;gap:8px}
+  .hdr.sm .brand span.brand-t{display:none}
+  .hdr.sm .brand img{width:42px;height:42px}
+  .hdr.sm .search form{height:40px}
+
+  /* hero CTAs wrap instead of squeezing */
+  .ctas{display:flex;flex-wrap:wrap;gap:8px}
+  .ctas .btn,.ctas .btn.lg{flex:1 1 auto;min-height:48px;font-size:14.5px;padding:0 16px}
+
+  .grid.g6,.grid.g3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rail.g3{display:flex}
+
+  /* Signature: all five products visible, the first as a wide feature card */
+  .sig-grid,.sig-grid.col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-inline:0;padding-inline:0;overflow:visible}
+  .sig-grid .scard{flex:none}
+  .sig-grid .scard:first-child{grid-column:1/-1;flex-direction:row}
+  .sig-grid .scard:first-child .sc-im{width:44%;flex:none;aspect-ratio:1;border-bottom:0;border-right:2px solid var(--gold-l)}
+  .sig-grid .scard:first-child .sc-bd{padding:14px;justify-content:center}
+  .sig-grid .scard:first-child h3{font-size:17px}
+  .sc-bd{padding:10px 10px 12px}
+  .sc-bd h3{font-size:14px}
+  .sc-aka{font-size:12px;margin-bottom:8px}
+}
+@media (max-width:370px){
+  .brand img{width:56px;height:56px}
+  .brand-t b{font-size:18px;letter-spacing:.05em}
+  .brand-t small{font-size:10.5px}
 }

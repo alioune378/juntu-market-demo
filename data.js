@@ -1,6 +1,6 @@
 /* Juntu Market — demo catalog.
    PRICES ARE PROVISIONAL (illustrative, private demo only). Sizes are shown only where printed on the
-   pack or stated in the source listing. "wt" = provisional shipping weight in lb for the illustrative
+   pack or stated in the source listing. "aka" = short descriptor taken from the pack label / description (no new claims). "wt" = provisional shipping weight in lb for the illustrative
    shipping estimator — NOT verified. See docs/catalog-verification-checklist.md.
    src: "juntu" = photographed at Juntu Market (supplied). "list" = common West African staples from the
    Africa Supermarket asset pack; photos in assets/products/list/ (sources in SOURCES.csv). Juntu has NOT
@@ -17,27 +17,27 @@ window.JUNTU_CATS = [
 ];
 
 window.JUNTU_PRODUCTS = [
-  { id: "juntu-red-palm-oil", src: "juntu", img: "juntu-red-palm-oil", brand: "Juntu", name: "Juntu Pure Red Palm Oil",
+  { id: "juntu-red-palm-oil", src: "juntu", img: "juntu-red-palm-oil", brand: "Juntu", name: "Juntu Pure Red Palm Oil", aka: "For stews, sauces & soups",
     size: "", price: 24.99, wt: 8.6, ship: true, cats: ["juntu", "oils-seasonings", "african"],
     tags: ["palm oil", "red palm oil", "huile de palme", "zomi", "oil"],
     desc: "Pure red palm oil under the Juntu Market label. A cornerstone of West African cooking for stews, sauces and soups.",
     label: "Pack reads: “Palm Oil — Pure Red Palm Oil”, “From Africa to Your Table”." },
-  { id: "juntu-baobab-powder", src: "juntu", img: "juntu-baobab-powder", brand: "Juntu", name: "Juntu Baobab Powder",
+  { id: "juntu-baobab-powder", src: "juntu", img: "juntu-baobab-powder", brand: "Juntu", name: "Juntu Baobab Powder", aka: "Bouye · baobab fruit powder",
     size: "", price: 12.99, wt: 2.3, ship: true, cats: ["juntu", "pantry", "african"],
     tags: ["baobab", "bouye", "bouy", "pain de singe", "baobab fruit powder"],
     desc: "Baobab fruit powder, known as bouye in Senegal, packed under the Juntu Market label. Used for traditional drinks and desserts.",
     label: "Pack reads: “Baobab Powder”, “From Africa to Your Table”." },
-  { id: "juntu-thiakry", src: "juntu", img: "juntu-thiakry", brand: "Juntu", name: "Juntu Thiakry",
+  { id: "juntu-thiakry", src: "juntu", img: "juntu-thiakry", brand: "Juntu", name: "Juntu Thiakry", aka: "Dégué · Senegalese millet dessert",
     size: "", price: 9.99, wt: 2.3, ship: true, cats: ["juntu", "rice-grains", "african"],
     tags: ["thiakry", "thiakri", "chakery", "chakry", "degue", "dégué", "deguee", "millet dessert", "millet"],
     desc: "Senegalese millet dessert grains, also known as dégué, under the Juntu Market label. Traditionally mixed with sweetened milk or yogurt.",
     label: "Pack reads: “Thiakry — Senegalese Millet Dessert”." },
-  { id: "juntu-peanut-powder-noflaye", src: "juntu", img: "juntu-peanut-powder-noflaye", brand: "Juntu", name: "Juntu Peanut Powder — Noflaye",
+  { id: "juntu-peanut-powder-noflaye", src: "juntu", img: "juntu-peanut-powder-noflaye", brand: "Juntu", name: "Juntu Peanut Powder — Noflaye", aka: "Ground peanut powder",
     size: "", price: 10.99, wt: 2.3, ship: true, cats: ["juntu", "oils-seasonings", "african"],
     tags: ["peanut powder", "noflaye", "noflay", "groundnut powder", "arachide", "poudre d'arachide", "peanut"],
     desc: "Ground peanut powder, known as noflaye, under the Juntu Market label. Used in peanut sauces and traditional dishes.",
     label: "Pack reads: “Peanut Powder ou Noflaye”." },
-  { id: "juntu-arraw-millet", src: "juntu", img: "juntu-arraw-millet", brand: "Juntu", name: "Juntu Arraw — Millet Granules",
+  { id: "juntu-arraw-millet", src: "juntu", img: "juntu-arraw-millet", brand: "Juntu", name: "Juntu Arraw — Millet Granules", aka: "Granulé de mil · rolled millet",
     size: "", price: 9.99, wt: 2.3, ship: true, cats: ["juntu", "rice-grains", "african"],
     tags: ["arraw", "araw", "millet granules", "granule de mil", "granulé de mil", "mil", "millet"],
     desc: "Arraw, rolled millet granules, under the Juntu Market label. A Senegalese staple for porridge and traditional breakfasts.",
